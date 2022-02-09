@@ -13,7 +13,6 @@ class Getraenkeautomat <root> {
 
 class Warenbestand <waren> {
 +befuelleGetraenkefaecher()
-+entleereGetraenkefaecher()
 +summeAlleGetraenke()
 }
 
@@ -36,7 +35,6 @@ name
 
 class Geldbestand <kasse> {
 +befuelleMuenzfaecher()
-+entleereMuenzfaecher()
 +summeAlleMuenzen()
 +umwandelnBetrat2Muenzen()
 +umwandelnMuenzen2Betrag()

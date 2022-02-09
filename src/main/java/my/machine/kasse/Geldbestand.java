@@ -35,11 +35,11 @@ public class Geldbestand {
          */
     }
 
-    public void entleereMuenzfaecher(){
-        /**
-         * TO-DO
-         */
-    }
+//    public void entleereMuenzfaecher(){
+//        /**
+//         * TO-DO
+//         */
+//    }
 
     public Double summeAlleMuenzen(){
         /**

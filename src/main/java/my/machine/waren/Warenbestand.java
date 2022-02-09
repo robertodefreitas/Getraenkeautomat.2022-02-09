@@ -30,11 +30,11 @@ public class Warenbestand {
          */
     }
 
-    public void entleereGetraenkefach(){
-        /**
-         * TO-DO
-         */
-    }
+//    public void entleereGetraenkefach(){
+//        /**
+//         * TO-DO
+//         */
+//    }
 
     public Double summeAlleGetraenke(){
         /**
