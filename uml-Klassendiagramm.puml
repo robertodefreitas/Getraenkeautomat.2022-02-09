@@ -1,4 +1,5 @@
 @startuml
+'https://plantuml.com/class-diagram
 title Classes - Klassendiagramm
 
 class Getraenkeautomat <root> {
@@ -11,6 +12,8 @@ class Getraenkeautomat <root> {
 'WAREN
 
 class Warenbestand <waren> {
++befuelleGetraenkefaecher()
++entleereGetraenkefaecher()
 +summeAlleGetraenke()
 }
 
@@ -32,6 +35,8 @@ name
 'KASSE
 
 class Geldbestand <kasse> {
++befuelleMuenzfaecher()
++entleereMuenzfaecher()
 +summeAlleMuenzen()
 +umwandelnBetrat2Muenzen()
 +umwandelnMuenzen2Betrag()
@@ -41,7 +46,7 @@ class Geldbestand <kasse> {
 
 class Muenzfach <kasse> {
 muenze: Muenztyp
-MuenzenAnzahl
+muenzenAnzahl
 maxMuenzenAnzahl
 +isMuenzfachLeer()
 +isMuenzfachVoll()
@@ -49,7 +54,7 @@ maxMuenzenAnzahl
 
 class Muenze <kasse> {
 muenze: Muenztyp
-werteInCent
++getWertInCent()
 }
 
 
@@ -75,10 +80,19 @@ ZWEI_EURO
 
 
 'BEZIEHUNGEN
+'https://info-wsf.de/assoziation-aggregation-und-komposition/
+'https://www.geeksforgeeks.org/association-composition-aggregation-java/
+'Komposition
+'Class --* Composition
+'Aggregation
+'Class --o Aggregation
+'Assoziation
+'Class --> Association
+'Class --|> Extension
 
 Getraenkeautomat *-> "1" Warenbestand
-Warenbestand -> "1..n" GetraenkeFach
-GetraenkeFach -> "0..n" Getraenk
+Warenbestand -> "1..n" Getraenkefach : ist sortiert in
+Getraenkefach -> "0..n" Getraenk : lagert
 
 Getraenkeautomat *--> "1" Geldbestand
 Geldbestand --> "5" Muenzfach : ist sortiert in
