@@ -1,0 +1,59 @@
+@startuml
+title Classes - Klassendiagramm
+
+class Getraenkeautomat {
++GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, Muenze... einzahlung)
++befuelleAutomat()
++entleereAutomat()
+}
+
+class Warenbestand {
+}
+
+class GetraenkeFach {
+fachNummer
+Preis
+maxAnzahl
+}
+
+class Getraenk {
+name
+}
+
+class GetraenkUndWechselgeld {
+wechselgeld: List<Muenze>
+getraenk: Getraenk
+fehler: String
+}
+
+class Getraenkewunsch {
+fachNummer
+}
+
+class Geldbestand {
+}
+
+class Muenzfach {
+typ: Muenztyp
+maxAnzahl
+}
+
+class Muenze {
+typ: Muenztyp
+}
+
+enum Muenztyp {
+zehn
+zwanzig
+...
+}
+
+Getraenkeautomat *-> "1" Warenbestand
+Warenbestand -> "1..n" GetraenkeFach
+GetraenkeFach -> "0..n" Getraenk
+
+Getraenkeautomat *--> "1" Geldbestand
+Geldbestand --> "5" Muenzfach : ist sortiert in
+Muenzfach --> "0..n" Muenze : lagert
+
+@enduml
