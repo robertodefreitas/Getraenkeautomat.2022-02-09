@@ -12,7 +12,7 @@ public class Getraenkeautomat {
 
     /* methods */
     GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, Muenze... einzahlung){
-        GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld;
+        GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld();
         return getraenkUndWechselgeld;
     }
 }
