@@ -1,52 +1,80 @@
 @startuml
 title Classes - Klassendiagramm
 
-class Getraenkeautomat {
+class Getraenkeautomat <root> {
 +GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, Muenze... einzahlung)
 +befuelleAutomat()
 +entleereAutomat()
 }
 
-class Warenbestand {
+
+'WAREN
+
+class Warenbestand <waren> {
++summeAlleGetraenke()
 }
 
-class GetraenkeFach {
+class Getraenkefach <waren> {
 fachNummer
-Preis
-maxAnzahl
+getraenk: Getraenk
+getraenkeAnzahl
+maxGetraenkeAnzahl
+preis
++isGetraenkefachLeer()
++isGetraenkefachVoll()
 }
 
-class Getraenk {
+class Getraenk <waren> {
 name
 }
 
-class GetraenkUndWechselgeld {
-wechselgeld: List<Muenze>
+
+'KASSE
+
+class Geldbestand <kasse> {
++summeAlleMuenzen()
++umwandelnBetrat2Muenzen()
++umwandelnMuenzen2Betrag()
++umwandelnBetra2Cents()
++umwandelnCents2Betrag()
+}
+
+class Muenzfach <kasse> {
+muenze: Muenztyp
+MuenzenAnzahl
+maxMuenzenAnzahl
++isMuenzfachLeer()
++isMuenzfachVoll()
+}
+
+class Muenze <kasse> {
+muenze: Muenztyp
+werteInCent
+}
+
+
+'OHNE_BEZIEHUNG
+
+class GetraenkUndWechselgeld <DTO> {
 getraenk: Getraenk
+wechselgeld: List<Muenze>
 fehler: String
 }
 
-class Getraenkewunsch {
+class Getraenkewunsch <DTO> {
 fachNummer
 }
 
-class Geldbestand {
+enum Muenztyp <kasse> {
+ZEHN_CENT
+ZWANZIG_CENT
+FUENZIG_CENT
+EIN_EURO
+ZWEI_EURO
 }
 
-class Muenzfach {
-typ: Muenztyp
-maxAnzahl
-}
 
-class Muenze {
-typ: Muenztyp
-}
-
-enum Muenztyp {
-zehn
-zwanzig
-...
-}
+'BEZIEHUNGEN
 
 Getraenkeautomat *-> "1" Warenbestand
 Warenbestand -> "1..n" GetraenkeFach
