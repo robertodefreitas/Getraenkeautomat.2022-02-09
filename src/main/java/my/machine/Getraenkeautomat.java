@@ -52,12 +52,12 @@ public class Getraenkeautomat {
                     geldbestand.isGenugMuenzenFuerWechselgeldVorhanden(wechselgeldBetrag)
             ) {
                 warenbestand.getraenkKonsumieren(auswahl);
+                
+                GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld(
+                        warenbestand.getGetraenk(auswahl),
+                        geldbestand.umwandelnBetrag2Muenzen(wechselgeldBetrag),
+                        "[OK] Das Einkaufen war erfolgreich.");
 
-                Getraenk getraenk = warenbestand.getGetraenk(auswahl);
-                List<Muenze> wechselgeld = geldbestand.umwandelnBetrag2Muenzen(wechselgeldBetrag);
-                String status = "[OK] Das Einkaufen war erfolgreich.";
-
-                GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld(getraenk, wechselgeld, status);
                 return getraenkUndWechselgeld;
             }
         } catch (Exception e) {
