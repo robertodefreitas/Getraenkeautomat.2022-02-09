@@ -52,7 +52,7 @@ public class Getraenkeautomat {
                     geldbestand.isGenugMuenzenFuerWechselgeldVorhanden(wechselgeldBetrag)
             ) {
                 warenbestand.getraenkKonsumieren(auswahl);
-                
+
                 GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld(
                         warenbestand.getGetraenk(auswahl),
                         geldbestand.umwandelnBetrag2Muenzen(wechselgeldBetrag),
@@ -60,6 +60,9 @@ public class Getraenkeautomat {
 
                 return getraenkUndWechselgeld;
             }
+            
+            return null;
+
         } catch (Exception e) {
             System.out.println("[ERROR]" + e.getMessage());
             return null;
