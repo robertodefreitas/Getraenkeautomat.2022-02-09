@@ -31,71 +31,38 @@ public class Getraenkeautomat {
         }
 
         /**
-         * TO-DO
+         * WIP: 10.02.2022
+         * Exception Handling
+         * https://www.baeldung.com/java-exceptions
+         * https://michaelkipp.de/java/20B%20exceptions-io.html
          */
 
         /**
          * Prüft ob das gewünschte Getränk vorhanden ist
+         * Prüft ob genug Geld eingezahlt ist
+         * Prüft ob genug Münzen für das Wechselgeld vorhanden ist
          */
-        if(warenbestand.isGetraenkewunschVorhanden(auswahl)){
-            System.out.println("INFO [" + methodeName + "] Getränkewunsch ist vorhanden. Auswahl: " + auswahl.getFachNummer());
-
-
-            /**
-             * Prüft ob genug Geld eingezahlt ist
-             */
+        try {
             Double einzahlungBetrag = geldbestand.umwandelnMuenzen2Betrag(einzahlung);
-            if (warenbestand.isEinzahlungBetragAusreichend(auswahl, einzahlungBetrag)){
-                System.out.println("INFO [" + methodeName + "] Es wurde genug Geld eingezahlt. Einzahlungsbetrag: " + einzahlungBetrag);
+            //Double wechselgeldBetrag = warenbestand.getWechselgeldBetrag(auswahl, einzahlungBetrag); // alternativ
+            Double wechselgeldBetrag = einzahlungBetrag - warenbestand.getGetrankpreis(auswahl);
+            if(
+                    warenbestand.isGetraenkewunschVorhanden(auswahl) &&
+                    warenbestand.isEinzahlungBetragAusreichend(auswahl, einzahlungBetrag) &&
+                    geldbestand.isGenugMuenzenFuerWechselgeldVorhanden(wechselgeldBetrag)
+            ) {
+                warenbestand.getraenkKonsumieren(auswahl);
 
+                Getraenk getraenk = warenbestand.getGetraenk(auswahl);
+                List<Muenze> wechselgeld = geldbestand.umwandelnBetrag2Muenzen(wechselgeldBetrag);
+                String status = "[OK] Das Einkaufen war erfolgreich.";
 
-                /**
-                 * Prüft ob genug Münzen für das Wechselgeld vorhanden ist
-                 */
-                Double wechselgeldBetrag = einzahlungBetrag - warenbestand.getGetrankpreis(auswahl);
-                //Double wechselgeldBetrag = warenbestand.getWechselgeldBetrag(auswahl, einzahlungBetrag); // alternativ
-
-                if(geldbestand.isGenugMuenzenFuerWechselgeldVorhanden()){
-                    System.out.println("INFO [" + methodeName + "] Es ist genug Münzen für das Wechselgeld da. Wechselgeldbetrag: " + wechselgeldBetrag);
-
-                    Getraenk getraenk = warenbestand.getGetraenk(auswahl);
-                    warenbestand.getraenkKonsumieren(auswahl);
-
-                    List<Muenze> wechselgeld = geldbestand.umwandelnBetrag2Muenzen(wechselgeldBetrag);
-
-                    String status = "[OK] Einkaufen erfolgreich abgeschlossen.";
-
-                    GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld(getraenk, wechselgeld, status);
-
-                    return getraenkUndWechselgeld;
-
-                } else {
-                    System.out.println("ERRO [" + methodeName + "] Es ist nicht genug Münzen für das Wechselgeld da. Wechselgeldbetrag: " + wechselgeldBetrag);
-
-                    String status = "[ERROR] Wegen Münzenmangel ist das Einkaufen nicht abgeschlossen.";
-                    Getraenk getraenkNULL = warenbestand.getGetraenkNULL;
-                    GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld(getraenkNULL, einzahlung, status);
-                    return getraenkUndWechselgeld;
-                }
-
-
-            } else {
-                System.out.println("ERRO [" + methodeName + "] Es wurde nicht genug Geld eingezahlt. Einzahlungsbetrag: " + einzahlungBetrag);
-
-                String status = "[ERROR] Zu wenig Geld eingezahlt.";
-                Getraenk getraenkNULL = warenbestand.getGetraenkNULL;
-                GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld(getraenkNULL, einzahlung, status);
+                GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld(getraenk, wechselgeld, status);
                 return getraenkUndWechselgeld;
             }
-
-
-        } else {
-            System.out.println("ERRO [" + methodeName + "] Getränkewunsch ist nicht vorhanden. Auswahl: " + auswahl.getFachNummer());
-
-            String status = "[ERROR] Getränkewunsch ist nicht vorhanden.";
-            Getraenk getraenkNULL = warenbestand.getGetraenkNULL;
-            GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld(getraenkNULL, einzahlung, status);
-            return getraenkUndWechselgeld;
+        } catch (Exception e) {
+            System.out.println("[ERROR]" + e.getMessage());
+            return null;
         }
     }
 

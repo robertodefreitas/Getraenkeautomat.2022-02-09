@@ -15,10 +15,17 @@ public class GetraenkUndWechselgeld {
 
     public GetraenkUndWechselgeld() { }
 
-    public GetraenkUndWechselgeld(Getraenk getraenk, List<Muenze> wechselgeld, String fehler) {
+    // https://michaelkipp.de/java/20B%20exceptions-io.html
+    // https://www.baeldung.com/java-exceptions
+    // https://www.tutorialspoint.com/can-a-constructor-throw-an-exception-in-java
+    public GetraenkUndWechselgeld(Getraenk getraenk, List<Muenze> wechselgeld, String fehler) throws Exception {
         this.getraenk = getraenk;
         this.wechselgeld = wechselgeld;
         this.fehler = fehler;
+
+        if (getraenk == null) {
+            throw new Exception("Getränk is nicht vorhanden. (null)");
+        }
     }
 
 
