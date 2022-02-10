@@ -5,16 +5,11 @@ import java.util.List;
 
 public class Geldbestand {
     private List<Muenzfach> muenzfaecher;
-    private Integer maxMuenzenAnzahlGlobal = 15;
 
     /* constructor */
 
-    public Geldbestand() {
-        this.muenzfaecher.add(new Muenzfach(Muenztyp.ZEHN_CENT,0,maxMuenzenAnzahlGlobal));
-        this.muenzfaecher.add(new Muenzfach(Muenztyp.ZWANZIG_CENT,0,maxMuenzenAnzahlGlobal));
-        this.muenzfaecher.add(new Muenzfach(Muenztyp.FUENZIG_CENT,0,maxMuenzenAnzahlGlobal));
-        this.muenzfaecher.add(new Muenzfach(Muenztyp.EIN_EURO,0,maxMuenzenAnzahlGlobal));
-        this.muenzfaecher.add(new Muenzfach(Muenztyp.ZWEI_EURO,0,maxMuenzenAnzahlGlobal));
+    public Geldbestand(List<Muenzfach> muenzfaecher) {
+        this.muenzfaecher = muenzfaecher;
     }
 
     /* getters and setters */
@@ -29,13 +24,13 @@ public class Geldbestand {
 
     /* methods */
 
-    public void befuelleMuenzfaecher(List<Muenze> muenzen){
+    public void befuelleMuenzfach(List<Muenze> muenzen){
         /**
          * TO-DO
          */
     }
 
-//    public void entleereMuenzfaecher(){
+//    public void entleereMuenzfach(){
 //        /**
 //         * TO-DO
 //         */

@@ -1,36 +1,28 @@
 package my.machine.kasse;
 
+import java.util.List;
+
 public class Muenzfach {
-    private Muenztyp muenze;
-    private Integer muenzenAnzahl;
+    private List<Muenze> muenzen;
     private Integer maxMuenzenAnzahl;
 
 
     /* constructor */
 
-    public Muenzfach(Muenztyp muenze, Integer muenzenAnzahl, Integer maxMuenzenAnzahl) {
-        this.muenze = muenze;
-        this.muenzenAnzahl = muenzenAnzahl;
+    public Muenzfach(List<Muenze> muenzen, Integer maxMuenzenAnzahl) {
+        this.muenzen = muenzen;
         this.maxMuenzenAnzahl = maxMuenzenAnzahl;
     }
 
 
     /* getters and setters */
 
-    public Muenztyp getMuenze() {
-        return muenze;
+    public List<Muenze> getMuenzen() {
+        return muenzen;
     }
 
-    public void setMuenze(Muenztyp muenze) {
-        this.muenze = muenze;
-    }
-
-    public Integer getMuenzenAnzahl() {
-        return muenzenAnzahl;
-    }
-
-    public void setMuenzenAnzahl(Integer muenzenAnzahl) {
-        this.muenzenAnzahl = muenzenAnzahl;
+    public void setMuenzen(List<Muenze> muenzen) {
+        this.muenzen = muenzen;
     }
 
     public Integer getMaxMuenzenAnzahl() {

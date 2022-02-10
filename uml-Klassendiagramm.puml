@@ -4,22 +4,26 @@ title Classes - Klassendiagramm
 
 class Getraenkeautomat <root> {
 +GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, Muenze... einzahlung)
-+befuelleAutomat()
-+entleereAutomat()
+'+befuelleAutomat()
++befuelleGetraenkefach()
++befuelleMuenzfach()
+'+entleereAutomat()
++entleereGetraenkefach()
++entleereMuenzfach()
 }
 
 
 'WAREN
 
 class Warenbestand <waren> {
-+befuelleGetraenkefaecher()
+getraenkefaecher: List<Getraenkfach>
++befuelleGetraenkefach()
 +summeAlleGetraenke()
 }
 
 class Getraenkefach <waren> {
 fachNummer
-getraenk: Getraenk
-getraenkeAnzahl
+getraenke: List<Getraenk>
 maxGetraenkeAnzahl
 preis
 +isGetraenkefachLeer()
@@ -34,7 +38,8 @@ name
 'KASSE
 
 class Geldbestand <kasse> {
-+befuelleMuenzfaecher()
+muenzfaecher: List<Muenzfach>
++befuelleMuenzfach()
 +summeAlleMuenzen()
 +umwandelnBetrat2Muenzen()
 +umwandelnMuenzen2Betrag()
@@ -43,8 +48,7 @@ class Geldbestand <kasse> {
 }
 
 class Muenzfach <kasse> {
-muenze: Muenztyp
-muenzenAnzahl
+muenzen: List<Muenze>
 maxMuenzenAnzahl
 +isMuenzfachLeer()
 +isMuenzfachVoll()

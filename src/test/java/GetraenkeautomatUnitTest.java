@@ -3,8 +3,6 @@ import my.machine.dto.GetraenkUndWechselgeld;
 import my.machine.dto.Getraenkewunsch;
 import my.machine.kasse.Muenze;
 import my.machine.kasse.Muenztyp;
-import my.machine.waren.Getraenk;
-import my.machine.waren.Getraenkefach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -25,12 +23,6 @@ public class GetraenkeautomatUnitTest {
                 new Muenze(Muenztyp.ZWANZIG_CENT),
                 new Muenze(Muenztyp.EIN_EURO)
         ));
-
-        List<Getraenkefach> getraenkefaecher = new ArrayList<>(Arrays.asList(
-            new Getraenkefach(1,new Getraenk("wasser"),11,15,0.9),
-            new Getraenkefach(2,new Getraenk("cola"),11,15,1.7)
-        ));
-
 
         GetraenkUndWechselgeld getraenkUndWechselgeld = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
 

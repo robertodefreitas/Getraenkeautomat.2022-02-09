@@ -1,21 +1,15 @@
 package my.machine.waren;
 
+import java.util.List;
+
 public class Getraenkefach {
     private Integer fachNummer;
-    private Getraenk getraenk;
-    private Integer getraenkeAnzahl;
+    private List<Getraenk> getraenke;
     private Integer maxGetraenkeAnzahl;
     private Double preis;
 
     /* constructor */
 
-    public Getraenkefach(Integer fachNummer, Getraenk getraenk, Integer getraenkeAnzahl, Integer maxGetraenkeAnzahl, Double preis) {
-        this.fachNummer = fachNummer;
-        this.getraenk = getraenk;
-        this.getraenkeAnzahl = getraenkeAnzahl;
-        this.maxGetraenkeAnzahl = maxGetraenkeAnzahl;
-        this.preis = preis;
-    }
 
     /* getters and setters */
 
@@ -27,20 +21,12 @@ public class Getraenkefach {
         this.fachNummer = fachNummer;
     }
 
-    public Getraenk getGetraenk() {
-        return getraenk;
+    public List<Getraenk> getGetraenke() {
+        return getraenke;
     }
 
-    public void setGetraenk(Getraenk getraenk) {
-        this.getraenk = getraenk;
-    }
-
-    public Integer getGetraenkeAnzahl() {
-        return getraenkeAnzahl;
-    }
-
-    public void setGetraenkeAnzahl(Integer getraenkeAnzahl) {
-        this.getraenkeAnzahl = getraenkeAnzahl;
+    public void setGetraenke(List<Getraenk> getraenke) {
+        this.getraenke = getraenke;
     }
 
     public Integer getMaxGetraenkeAnzahl() {

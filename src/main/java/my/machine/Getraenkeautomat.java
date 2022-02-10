@@ -4,6 +4,8 @@ import my.machine.dto.GetraenkUndWechselgeld;
 import my.machine.dto.Getraenkewunsch;
 import my.machine.kasse.Geldbestand;
 import my.machine.kasse.Muenze;
+import my.machine.kasse.Muenzfach;
+import my.machine.waren.Getraenk;
 import my.machine.waren.Getraenkefach;
 import my.machine.waren.Warenbestand;
 
@@ -22,7 +24,6 @@ public class Getraenkeautomat {
     /* methods */
     public GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, List<Muenze> einzahlung){
         String methodeName = new Object(){}.getClass().getEnclosingMethod().getName();
-
         System.out.println("INFO [" + methodeName + "] Getränkewunsch: " + auswahl.getFachNummer());
 
         for (Muenze muenze : einzahlung){
@@ -33,18 +34,28 @@ public class Getraenkeautomat {
          * TO-DO
          */
 
+
+
+
         GetraenkUndWechselgeld getraenkUndWechselgeld = new GetraenkUndWechselgeld();
         return getraenkUndWechselgeld;
     }
 
-    public void befuelleAutomat(Integer getraenkefachNummer, Integer getraenkeAnzahl, List<Muenze> muenzen){
-        warenbestand.befuelleGetraenkefach(getraenkefachNummer, getraenkeAnzahl);
-        geldbestand.befuelleMuenzfaecher(muenzen);
+    public void befuelleGetraenkefach(Integer fachNummer, List<Getraenk> getraenke){
+        warenbestand.befuelleGetraenkefach(fachNummer, getraenke);
     }
 
-    public void entleereAutomat(){
+    public void befuelleMuenzfach(List<Muenze> muenzen){
+        geldbestand.befuelleMuenzfach(muenzen);
+    }
+
+    public void entleereGetraenkefach(){
         List<Getraenkefach> getraenkefaecher = new ArrayList<>();
         warenbestand = new Warenbestand(getraenkefaecher);
-        geldbestand = new Geldbestand();
+    }
+
+    public void entleereMuenzfach(){
+        List<Muenzfach> muenzfaecher = new ArrayList<>();
+        geldbestand = new Geldbestand(muenzfaecher);
     }
 }

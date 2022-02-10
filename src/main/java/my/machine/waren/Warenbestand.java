@@ -1,7 +1,5 @@
 package my.machine.waren;
 
-import my.machine.kasse.Muenzfach;
-
 import java.util.List;
 
 public class Warenbestand {
@@ -11,6 +9,7 @@ public class Warenbestand {
     public Warenbestand(List<Getraenkefach> getraenkefaecher) {
         this.getraenkefaecher = getraenkefaecher;
     }
+
 
     /* getters and setters */
 
@@ -22,9 +21,10 @@ public class Warenbestand {
         this.getraenkefaecher = getraenkefaecher;
     }
 
+
     /* methods */
 
-    public void befuelleGetraenkefach(Integer getraenkefachNummer, Integer getraenkeAnzahl){
+    public void befuelleGetraenkefach(Integer fachNummer, List<Getraenk> getraenke){
         /**
          * TO-DO
          */
