@@ -74,9 +74,6 @@ public class Getraenkefach {
         this.getraenke.remove(indexLetzteGetraenkInFach);
         return this.getraenke.get(0);
     }
-//    public Getraenkefach getraenkefachNull(){
-//        return new Getraenkefach();
-//    }
 
     public boolean isGetraenkefachLeer(){
         /**
