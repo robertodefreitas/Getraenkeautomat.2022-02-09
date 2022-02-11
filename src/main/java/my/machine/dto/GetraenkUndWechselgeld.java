@@ -15,17 +15,22 @@ public class GetraenkUndWechselgeld {
 
     public GetraenkUndWechselgeld() { }
 
-    // https://michaelkipp.de/java/20B%20exceptions-io.html
-    // https://www.baeldung.com/java-exceptions
-    // https://www.tutorialspoint.com/can-a-constructor-throw-an-exception-in-java
-    public GetraenkUndWechselgeld(Getraenk getraenk, List<Muenze> wechselgeld, String fehler) throws Exception {
+//    public GetraenkUndWechselgeld(Getraenk getraenk, List<Muenze> wechselgeld, String fehler) {
+//        this.getraenk = getraenk;
+//        this.wechselgeld = wechselgeld;
+//        this.fehler = fehler;
+//    }
+
+    private GetraenkUndWechselgeld(Getraenk getraenk, List<Muenze> wechselgeld) {
         this.getraenk = getraenk;
         this.wechselgeld = wechselgeld;
-        this.fehler = fehler;
+        this.fehler = null;
+    }
 
-        if (getraenk == null) {
-            throw new Exception("Getränk is nicht vorhanden. (null)");
-        }
+    private GetraenkUndWechselgeld(List<Muenze> einzahlung, String fehler) {
+        this.getraenk = null;
+        this.wechselgeld = einzahlung;
+        this.fehler = fehler;
     }
 
 
@@ -57,4 +62,12 @@ public class GetraenkUndWechselgeld {
 
 
     /* methods */
+
+    public GetraenkUndWechselgeld kaufenErfolgreich(Getraenk getraenk, List<Muenze> wechselgeld){
+        return new GetraenkUndWechselgeld(getraenk, wechselgeld);
+    }
+
+    public GetraenkUndWechselgeld kaufenFehlerhaft(List<Muenze> einzahlung, String fehler){
+        return new GetraenkUndWechselgeld(einzahlung, fehler);
+    }
 }

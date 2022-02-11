@@ -1,21 +1,39 @@
 package my.machine.kasse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Muenzfach {
+    private Integer id;
     private List<Muenze> muenzen;
     private Integer maxMuenzenAnzahl;
 
 
     /* constructor */
 
-    public Muenzfach(List<Muenze> muenzen, Integer maxMuenzenAnzahl) {
+    public Muenzfach(){}
+
+    public Muenzfach(Integer id, List<Muenze> muenzen, Integer maxMuenzenAnzahl) {
+        this.id = id;
         this.muenzen = muenzen;
         this.maxMuenzenAnzahl = maxMuenzenAnzahl;
     }
 
+    private Muenzfach(Integer id, Integer maxMuenzenAnzahl) {
+        this.id = id;
+        this.muenzen = new ArrayList<>();
+        this.maxMuenzenAnzahl = maxMuenzenAnzahl;
+    }
 
     /* getters and setters */
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public List<Muenze> getMuenzen() {
         return muenzen;
@@ -36,6 +54,10 @@ public class Muenzfach {
 
     /* methods */
 
+    public Muenzfach erstellenMuenzfach(Integer id, Integer maxMuenzenAnzahl){
+        return new Muenzfach(id, maxMuenzenAnzahl);
+    }
+
     public boolean isMuenzfachLeer(){
         /**
          * TO-DO
@@ -49,4 +71,5 @@ public class Muenzfach {
          */
         return true;
     }
+
 }

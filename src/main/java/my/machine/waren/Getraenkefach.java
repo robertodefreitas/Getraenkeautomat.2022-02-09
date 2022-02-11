@@ -1,5 +1,7 @@
 package my.machine.waren;
 
+import my.machine.dto.Getraenkewunsch;
+
 import java.util.List;
 
 public class Getraenkefach {
@@ -10,6 +12,26 @@ public class Getraenkefach {
 
     /* constructor */
 
+    public Getraenkefach(){
+        this.fachNummer = null;
+        this.getraenke = null;
+        this.maxGetraenkeAnzahl = 0;
+        this.preis = 0.0;
+    }
+
+    public Getraenkefach(Getraenkewunsch getraenkewunsch){
+        this.fachNummer = getraenkewunsch.getFachNummer();
+        this.getraenke = null;
+        this.maxGetraenkeAnzahl = 0;
+        this.preis = 0.0;
+    }
+
+    public Getraenkefach(Integer fachNummer, List<Getraenk> getraenke, Integer maxGetraenkeAnzahl, Double preis) {
+        this.fachNummer = fachNummer;
+        this.getraenke = getraenke;
+        this.maxGetraenkeAnzahl = maxGetraenkeAnzahl;
+        this.preis = preis;
+    }
 
     /* getters and setters */
 
@@ -46,6 +68,15 @@ public class Getraenkefach {
     }
 
     /* methods */
+
+    public Getraenk getraenkKonsumieren(Getraenkewunsch getraenkewunsch){
+        Integer indexLetzteGetraenkInFach = this.getraenke.size() - 1;
+        this.getraenke.remove(indexLetzteGetraenkInFach);
+        return this.getraenke.get(0);
+    }
+//    public Getraenkefach getraenkefachNull(){
+//        return new Getraenkefach();
+//    }
 
     public boolean isGetraenkefachLeer(){
         /**
