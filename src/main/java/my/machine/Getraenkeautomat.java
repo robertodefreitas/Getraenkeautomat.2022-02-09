@@ -5,7 +5,6 @@ import my.machine.dto.Getraenkewunsch;
 import my.machine.kasse.Geldbestand;
 import my.machine.kasse.GeldbestandFehler;
 import my.machine.kasse.Muenze;
-import my.machine.kasse.Muenzfach;
 import my.machine.waren.Getraenk;
 import my.machine.waren.Getraenkefach;
 import my.machine.waren.Warenbestand;
@@ -54,6 +53,7 @@ public class Getraenkeautomat {
             this.geldbestand.befuelleMuenzfaecher(einzahlung);
             this.geldbestand.abziehenMuenzenVonMuenzfaecher(wechselgeldMuenzen);
             GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
+            
             return ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(getraenk, wechselgeldMuenzen);
 
         }
