@@ -76,16 +76,16 @@ public class Getraenkefach {
     }
 
     public boolean isGetraenkefachLeer(){
-        /**
-         * TO-DO
-         */
-        return true;
+        if (getraenke.size() == 0){
+            return true;
+        }
+        return false;
     }
 
     public boolean isGetraenkefachVoll(){
-        /**
-         * TO-DO
-         */
-        return true;
+        if (getraenke.size() == maxGetraenkeAnzahl){
+            return true;
+        }
+        return false;
     }
 }

@@ -1,5 +1,7 @@
 package my.machine.kasse;
 
+import my.machine.waren.WarenbestandFehler;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -117,7 +119,10 @@ public class Geldbestand {
     }
 
     public void entleereMuenzfaecher(){
-        this.muenzfaecher = new ArrayList<>();
+        for (Muenzfach muenzfach : this.muenzfaecher){
+            List<Muenze> keineMuenze = new ArrayList<>();
+            muenzfach.setMuenzen(keineMuenze);
+        }
     }
 
     public Integer summeAlleMuenzenCents(){
@@ -162,7 +167,7 @@ public class Geldbestand {
 
             if (result != 0){
                 for (int i = 0; i < result; i++) {
-                    muenzen.add(muenzfaecher.get(0).getMuenzen().get(0).bekommenMuenztypVonCents(muenzeCents));
+                    muenzen.add(bekommenMuenztypVonCents(muenzeCents));
                 }
             }
             if (resultMod != 0) {
@@ -179,6 +184,42 @@ public class Geldbestand {
             centsSumme = centsSumme + muenze.bekommenCents();
         }
         return centsSumme;
+    }
+
+    public void pruefenMunzfachLeer(Integer muenzfachId) throws GeldbestandFehler {
+        for (Muenzfach muenzfach : this.muenzfaecher){
+            if(muenzfach.getId().equals(muenzfachId)){
+                if (muenzfach.isMuenzfachLeer()){
+                    throw new GeldbestandFehler("[pruefenMunzfachLeer] Es ist nicht genug Münzen im Munzfach für Wechselgeld.");
+                }
+            }
+        }
+    }
+
+    public void pruefenMuenzenFuerWechselgeld(List<Muenze> muenzen) throws GeldbestandFehler {
+        for (Muenze muenze : muenzen){
+            switch (muenze.bekommenCents()) {
+                case 200:
+                    pruefenMunzfachLeer(muenze.bekommenCents());
+                    break;
+                case 100:
+                    pruefenMunzfachLeer(muenze.bekommenCents());
+                    break;
+                case 50:
+                    pruefenMunzfachLeer(muenze.bekommenCents());
+                    break;
+                case 20:
+                    pruefenMunzfachLeer(muenze.bekommenCents());
+                    break;
+                case 10:
+                    pruefenMunzfachLeer(muenze.bekommenCents());
+                    break;
+            }
+        }
+    }
+
+    public Muenze bekommenMuenztypVonCents(Integer cents){
+        return new Muenzfach().bekommenMuenztypVonCents(cents);
     }
 
 }

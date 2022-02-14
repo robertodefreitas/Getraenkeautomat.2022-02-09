@@ -59,17 +59,21 @@ public class Muenzfach {
     }
 
     public boolean isMuenzfachLeer(){
-        /**
-         * TO-DO
-         */
-        return true;
+        if (muenzen.size() == 0){
+            return true;
+        }
+        return false;
     }
 
     public boolean isMuenzfachVoll(){
-        /**
-         * TO-DO
-         */
-        return true;
+        if (muenzen.size() == maxMuenzenAnzahl){
+            return true;
+        }
+        return false;
+    }
+
+    public Muenze bekommenMuenztypVonCents(Integer cents){
+        return new Muenze(cents);
     }
 
 }
