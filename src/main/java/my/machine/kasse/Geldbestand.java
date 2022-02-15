@@ -1,7 +1,5 @@
 package my.machine.kasse;
 
-import my.machine.waren.WarenbestandFehler;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

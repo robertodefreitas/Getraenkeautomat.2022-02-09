@@ -4,8 +4,8 @@ import my.machine.dto.Getraenkewunsch;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+//import java.util.stream.Collectors;
+//import java.util.stream.Stream;
 
 public class Warenbestand {
     private List<Getraenkefach> getraenkefaecher;

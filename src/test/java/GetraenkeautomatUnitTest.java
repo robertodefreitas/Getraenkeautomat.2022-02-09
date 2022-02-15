@@ -91,7 +91,7 @@ public class GetraenkeautomatUnitTest {
 
         startGetraenkeautomat();
         Assertions.assertEquals(1000, getraenkeautomat.summeAlleMuenzenCentsKasse());
-        
+
         getraenkeautomat.entleereMuenzfaecher();
         GetraenkUndWechselgeld getraenkUndWechselgeld = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
         Assertions.assertEquals("ERROR", getraenkUndWechselgeld.getFehler());

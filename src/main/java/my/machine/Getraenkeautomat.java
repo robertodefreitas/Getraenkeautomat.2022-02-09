@@ -6,11 +6,9 @@ import my.machine.kasse.Geldbestand;
 import my.machine.kasse.GeldbestandFehler;
 import my.machine.kasse.Muenze;
 import my.machine.waren.Getraenk;
-import my.machine.waren.Getraenkefach;
 import my.machine.waren.Warenbestand;
 import my.machine.waren.WarenbestandFehler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Getraenkeautomat {
