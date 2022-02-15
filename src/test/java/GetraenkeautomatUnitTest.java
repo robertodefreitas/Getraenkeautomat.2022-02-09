@@ -156,9 +156,9 @@ public class GetraenkeautomatUnitTest {
         ));
 
         List<Getraenkefach> getraenkefaecher = new ArrayList<>(Arrays.asList(
-                new Getraenkefach(1,getraenkeWasser,11,0.999),
-                new Getraenkefach(2,getraenkeCola,11,1.52),
-                new Getraenkefach(3,getraenkeWasser,11,1.111)
+                new Getraenkefach(1,getraenkeWasser,11,0.910), // 0.91 -> 1.0 keine Münze kleiner 10c
+                new Getraenkefach(2,getraenkeCola,11,1.2345),
+                new Getraenkefach(3,getraenkeWasser,11,0.99)
         ));
 
         Warenbestand warenbestand = new Warenbestand(getraenkefaecher);
