@@ -34,8 +34,8 @@ public class Getraenkeautomat {
 
     public GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, List<Muenze> einzahlung){
         /**
-         * WIP: 10.02.2022
-         * Exception Handling
+         * DONE
+         * Exception Handling bei der Methode kaufen(...)
          * https://www.baeldung.com/java-exceptions
          * https://michaelkipp.de/java/20B%20exceptions-io.html
          */
@@ -53,7 +53,7 @@ public class Getraenkeautomat {
             this.geldbestand.befuelleMuenzfaecher(einzahlung);
             this.geldbestand.abziehenMuenzenVonMuenzfaecher(wechselgeldMuenzen);
             GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
-            
+
             return ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(getraenk, wechselgeldMuenzen);
 
         }
