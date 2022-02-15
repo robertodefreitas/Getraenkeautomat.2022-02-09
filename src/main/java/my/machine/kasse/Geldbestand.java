@@ -169,6 +169,7 @@ public class Geldbestand {
                 for (int i = 0; i < result; i++) {
                     muenzen.add(bekommenMuenztypVonCents(muenzeCents));
                 }
+                cents = cents - result*muenzeCents;
             }
             if (resultMod != 0) {
                 cents = resultMod;

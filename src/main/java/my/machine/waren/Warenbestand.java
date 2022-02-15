@@ -98,13 +98,8 @@ public class Warenbestand {
 
 
     public Getraenk getraenkKonsumieren(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
-        try {
-            Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
-            return getraenkefach.getraenkKonsumieren(getraenkewunsch);
-        } catch (WarenbestandFehler fehler) {
-            System.out.println("[ERROR] " + fehler.getMessage());
-            return null;
-        }
+        Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
+        return getraenkefach.getraenkKonsumieren(getraenkewunsch);
     }
 
     public void befuelleGetraenkefach(Getraenkewunsch getraenkewunsch, List<Getraenk> getraenkeZuBefuellen) throws WarenbestandFehler{

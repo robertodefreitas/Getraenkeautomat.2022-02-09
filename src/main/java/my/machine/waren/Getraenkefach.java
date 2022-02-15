@@ -69,7 +69,7 @@ public class Getraenkefach {
 
     /* methods */
 
-    public Getraenk getraenkKonsumieren(Getraenkewunsch getraenkewunsch){
+    public Getraenk getraenkKonsumieren(Getraenkewunsch getraenkewunsch) {
         Integer indexLetzteGetraenkInFach = this.getraenke.size() - 1;
         this.getraenke.remove(indexLetzteGetraenkInFach);
         return this.getraenke.get(0);

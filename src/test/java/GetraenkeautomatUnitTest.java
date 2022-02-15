@@ -102,7 +102,7 @@ public class GetraenkeautomatUnitTest {
         Assertions.assertEquals("ERROR", getraenkUndWechselgeld.getFehler());
     }
 
-    
+
     @Test
     public void demoSchleifeMuenzen(){
         String methodeName = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -156,9 +156,9 @@ public class GetraenkeautomatUnitTest {
         ));
 
         List<Getraenkefach> getraenkefaecher = new ArrayList<>(Arrays.asList(
-                new Getraenkefach(1,getraenkeWasser,11,0.99),
+                new Getraenkefach(1,getraenkeWasser,11,0.999),
                 new Getraenkefach(2,getraenkeCola,11,1.52),
-                new Getraenkefach(3,getraenkeWasser,11,0.99)
+                new Getraenkefach(3,getraenkeWasser,11,1.111)
         ));
 
         Warenbestand warenbestand = new Warenbestand(getraenkefaecher);
