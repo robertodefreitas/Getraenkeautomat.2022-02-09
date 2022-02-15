@@ -1,8 +1,6 @@
 package my.machine.waren;
 
 import my.machine.dto.Getraenkewunsch;
-import my.machine.kasse.Muenze;
-import my.machine.kasse.Muenzfach;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +10,14 @@ import java.util.stream.Stream;
 public class Warenbestand {
     private List<Getraenkefach> getraenkefaecher;
 
+
     /* constructor */
     public Warenbestand(){}
 
     public Warenbestand(List<Getraenkefach> getraenkefaecher) {
         this.getraenkefaecher = getraenkefaecher;
     }
+
 
 
     /* getters and setters */
@@ -29,6 +29,7 @@ public class Warenbestand {
     public void setGetraenkefaecher(List<Getraenkefach> getraenkefaecher) {
         this.getraenkefaecher = getraenkefaecher;
     }
+
 
 
     /* methods */
@@ -82,24 +83,17 @@ public class Warenbestand {
     }
 
 
-    public Getraenk bekommenGetraenk(Getraenkewunsch getraenkewunsch){
-        try {
-            Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
-            return getraenkefach.getGetraenke().get(0);
-        } catch (WarenbestandFehler fehler) {
-            System.out.println("[ERROR] " + fehler.getMessage());
-            return null;
+    public Getraenk bekommenGetraenk(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
+        Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
+        if(getraenkefach.isGetraenkefachLeer()){
+            throw new WarenbestandFehler("[bekommenGetraenk] Getränkefach is leer. (return null)");
         }
+        return getraenkefach.getGetraenke().get(0);
     }
 
-    public Double bekommenGetraenkepreis(Getraenkewunsch getraenkewunsch){
-        try {
+    public Double bekommenGetraenkepreis(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
             Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
             return getraenkefach.getPreis();
-        } catch (WarenbestandFehler fehler) {
-            System.out.println("[ERROR] " + fehler.getMessage());
-            return null;
-        }
     }
 
 

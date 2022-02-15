@@ -76,13 +76,19 @@ public class Getraenkeautomat {
     }
 
     public Integer wechselgeldBerechnenCents(Getraenkewunsch auswahl, List<Muenze> einzahlung){
-        Integer einzahlungCents = this.geldbestand.umwandelnMuenzen2Cents(einzahlung);
-        Integer getraenkpreisCents = this.geldbestand.umwandelnBetrag2Cents(this.warenbestand.bekommenGetraenkepreis(auswahl));
+        try {
+            Integer einzahlungCents = this.geldbestand.umwandelnMuenzen2Cents(einzahlung);
+            Integer getraenkpreisCents = this.geldbestand.umwandelnBetrag2Cents(this.warenbestand.bekommenGetraenkepreis(auswahl));
 
-        //Integer wechselgeldBetrag = warenbestand.getWechselgeldBetrag(auswahl, einzahlungBetrag); // alternativ
-        Integer wechselgeldCents = einzahlungCents - getraenkpreisCents;
+            //Integer wechselgeldBetrag = warenbestand.getWechselgeldBetrag(auswahl, einzahlungBetrag); // alternativ
+            Integer wechselgeldCents = einzahlungCents - getraenkpreisCents;
 
-        return wechselgeldCents;
+            return wechselgeldCents;
+
+        } catch (WarenbestandFehler fehler){
+            System.out.println("[ERROR]" + fehler.getMessage());
+            return 0;
+        }
     }
 
     public void befuelleGetraenkefach(Getraenkewunsch auswahl, List<Getraenk> getraenke){
