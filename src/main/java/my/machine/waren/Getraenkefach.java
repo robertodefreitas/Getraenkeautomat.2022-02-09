@@ -67,12 +67,14 @@ public class Getraenkefach {
         this.preis = preis;
     }
 
+
     /* methods */
 
     public Getraenk getraenkKonsumieren(Getraenkewunsch getraenkewunsch) {
         Integer indexLetzteGetraenkInFach = this.getraenke.size() - 1;
-        this.getraenke.remove(indexLetzteGetraenkInFach);
-        return this.getraenke.get(0);
+        Getraenk getraenkAusgabe = this.getraenke.get(indexLetzteGetraenkInFach.intValue());
+        this.getraenke.remove(indexLetzteGetraenkInFach.intValue());
+        return getraenkAusgabe;
     }
 
     public boolean isGetraenkefachLeer(){
@@ -88,4 +90,6 @@ public class Getraenkefach {
         }
         return false;
     }
+
+
 }

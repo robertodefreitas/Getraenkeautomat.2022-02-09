@@ -104,14 +104,18 @@ public class Warenbestand {
 
     public void befuelleGetraenkefach(Getraenkewunsch getraenkewunsch, List<Getraenk> getraenkeZuBefuellen) throws WarenbestandFehler{
         for (Getraenkefach getraenkefach:this.getraenkefaecher){
-
             // wir nützen hier zweimal stream um die Liste zusammen zu fügen (concat)
             if(getraenkefach.getFachNummer() == getraenkewunsch.getFachNummer()){
-                List<Getraenk> resultsGetraenke = Stream.concat(
-                        getraenkefach.getGetraenke().stream(),
-                        getraenkeZuBefuellen.stream())
-                .collect(Collectors.toList());
-                getraenkefach.setGetraenke(resultsGetraenke);
+                for (Getraenk getraenk:getraenkeZuBefuellen){
+                    if(getraenkefach.isGetraenkefachVoll()){
+                        throw new WarenbestandFehler("[befuelleGetraenkefach] Getränkefach ist voll. Fach-ID: " + getraenkewunsch.getFachNummer());
+                        /**
+                         * TO-DO
+                         * Wenn die Getränkefach voll ist, wird der Getränkerest rausgegeben
+                         */
+                    }
+                    getraenkefach.getGetraenke().add(getraenk);
+                }
                 // return stop the loop and exit from methode
                 return;
                 // break stop the loop but not exit from methode
@@ -122,7 +126,34 @@ public class Warenbestand {
         throw new WarenbestandFehler("[befuelleGetraenkefach] Getränkefach ist nicht vorhanden. Fach-ID: " + getraenkewunsch.getFachNummer());
     }
 
-    public void entleereGetraenkefach(){
+    /**
+     * Diese Methode funktioniert mit dem lambda funktion concat
+     * ich habe aber ander geschrieben (s. oben) um die Methode isVoll zu verwenden
+     * also ohne lambda und concat
+     */
+/*
+    public void befuelleGetraenkefach(Getraenkewunsch getraenkewunsch, List<Getraenk> getraenkeZuBefuellen) throws WarenbestandFehler{
+        for (Getraenkefach getraenkefach:this.getraenkefaecher){
+
+            // wir nützen hier zweimal stream um die Liste zusammen zu fügen (concat)
+            if(getraenkefach.getFachNummer() == getraenkewunsch.getFachNummer()){
+                List<Getraenk> resultsGetraenke = Stream.concat(
+                        getraenkefach.getGetraenke().stream(),
+                        getraenkeZuBefuellen.stream())
+                        .collect(Collectors.toList());
+                getraenkefach.setGetraenke(resultsGetraenke);
+                // return stop the loop and exit from methode
+                return;
+                // break stop the loop but not exit from methode
+                //break;
+            }
+        }
+
+        throw new WarenbestandFehler("[befuelleGetraenkefach] Getränkefach ist nicht vorhanden. Fach-ID: " + getraenkewunsch.getFachNummer());
+    }
+*/
+
+    public void entleereGetraenkefaecher(){
         for (Getraenkefach getraenkefach : this.getraenkefaecher){
             List<Getraenk> keineGetraenke = new ArrayList<>();
             getraenkefach.setGetraenke(keineGetraenke);
@@ -133,11 +164,22 @@ public class Warenbestand {
     public Integer summeAlleGetraenkeMitName(String getraenkName){
         Integer summeGetraenke = 0;
         for (Getraenkefach getraenkefach : this.getraenkefaecher){
-            if(getraenkefach.getGetraenke().get(0).getName() == getraenkName){
-                summeGetraenke = summeGetraenke + getraenkefach.getGetraenke().size();
+            if(!getraenkefach.isGetraenkefachLeer()){
+                if(getraenkefach.getGetraenke().get(0).getName() == getraenkName){
+                    summeGetraenke = summeGetraenke + getraenkefach.getGetraenke().size();
+                }
             }
         }
         return summeGetraenke;
     }
 
+    public Integer summeAlleGetraenkeInGetraenkefach(Getraenkewunsch auswahl) throws WarenbestandFehler {
+        for (Getraenkefach getraenkefach : this.getraenkefaecher){
+            if(getraenkefach.getFachNummer() == auswahl.getFachNummer()){
+                return getraenkefach.getGetraenke().size();
+            }
+        }
+
+        throw new WarenbestandFehler("[summeAlleGetraenkeInGetraenkefach] Getränkefach ist nicht vorhanden. Fach-ID: " + auswahl.getFachNummer());
+    }
 }

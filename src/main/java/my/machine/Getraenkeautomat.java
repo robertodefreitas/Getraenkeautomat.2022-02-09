@@ -86,7 +86,7 @@ public class Getraenkeautomat {
             return wechselgeldCents;
 
         } catch (WarenbestandFehler fehler){
-            System.out.println("[ERROR]" + fehler.getMessage());
+            System.out.println("[ERROR] " + fehler.getMessage());
             return 0;
         }
     }
@@ -95,7 +95,7 @@ public class Getraenkeautomat {
         try {
             this.warenbestand.befuelleGetraenkefach(auswahl, getraenke);
         } catch (WarenbestandFehler fehler){
-                System.out.println("[ERROR]" + fehler.getMessage());
+                System.out.println("[ERROR] " + fehler.getMessage());
         }
     }
 
@@ -103,20 +103,28 @@ public class Getraenkeautomat {
         this.geldbestand.befuelleMuenzfaecher(muenzen);
     }
 
-    public void entleereGetraenkefach(){
-        List<Getraenkefach> getraenkefaecher = new ArrayList<>();
-        this.warenbestand = new Warenbestand(getraenkefaecher);
+    public void entleereGetraenkefaecher(){
+        this.warenbestand.entleereGetraenkefaecher();
     }
 
     public void entleereMuenzfaecher(){
-        geldbestand.entleereMuenzfaecher();
+        this.geldbestand.entleereMuenzfaecher();
     }
 
     public Integer summeAlleGetraenkeMitName(String getraenkName){
-        return warenbestand.summeAlleGetraenkeMitName(getraenkName);
+        return this.warenbestand.summeAlleGetraenkeMitName(getraenkName);
     }
 
-    public Integer summeAlleMuenzeKasse(){
-        return geldbestand.summeAlleMuenzenCents();
+    public Integer summeAlleGetraenkeInGetraenkefach(Getraenkewunsch auswahl){
+        try {
+            return this.warenbestand.summeAlleGetraenkeInGetraenkefach(auswahl);
+        } catch (WarenbestandFehler fehler){
+            System.out.println("[ERROR] " + fehler.getMessage());
+            return 0;
+        }
+    }
+
+    public Integer summeAlleMuenzenCentsKasse(){
+        return this.geldbestand.summeAlleMuenzenCents();
     }
 }
