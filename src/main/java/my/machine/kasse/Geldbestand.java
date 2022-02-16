@@ -58,27 +58,11 @@ public class Geldbestand {
 
     public void befuelleMuenzfaecher(List<Muenze> muenzen){
         for (Muenze muenze : muenzen){
-            switch (muenze.bekommenCents()) {
-                case 200:
-                    hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-                case 100:
-                    hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-                case 50:
-                    hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-                case 20:
-                    hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-                case 10:
-                    hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-            }
+            hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(),muenze);
         }
     }
 
-    public void abziehenMunzeVonMuenzfach(Integer muenzfachId, Muenze muenze){
+    public void abziehenMunzeVonMuenzfach(Integer muenzfachId, Muenze muenze) {
         for (Muenzfach muenzfach : this.muenzfaecher){
             if(muenzfach.getId().equals(muenzfachId)){
                 Integer indexOfMuenzfach = muenzfaecher.indexOf(muenzfach);
@@ -94,25 +78,9 @@ public class Geldbestand {
     }
 
 
-    public void abziehenMuenzenVonMuenzfaecher(List<Muenze> muenzen){
+    public void abziehenMuenzenVonMuenzfaecher(List<Muenze> muenzen) {
         for (Muenze muenze : muenzen){
-            switch (muenze.bekommenCents()) {
-                case 200:
-                    abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-                case 100:
-                    abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-                case 50:
-                    abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-                case 20:
-                    abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-                case 10:
-                    abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
-                    break;
-            }
+            abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
         }
     }
 
@@ -197,23 +165,7 @@ public class Geldbestand {
 
     public void pruefenMuenzenFuerWechselgeld(List<Muenze> muenzen) throws GeldbestandFehler {
         for (Muenze muenze : muenzen){
-            switch (muenze.bekommenCents()) {
-                case 200:
-                    pruefenMunzfachLeer(muenze.bekommenCents());
-                    break;
-                case 100:
-                    pruefenMunzfachLeer(muenze.bekommenCents());
-                    break;
-                case 50:
-                    pruefenMunzfachLeer(muenze.bekommenCents());
-                    break;
-                case 20:
-                    pruefenMunzfachLeer(muenze.bekommenCents());
-                    break;
-                case 10:
-                    pruefenMunzfachLeer(muenze.bekommenCents());
-                    break;
-            }
+            pruefenMunzfachLeer(muenze.bekommenCents());
         }
     }
 

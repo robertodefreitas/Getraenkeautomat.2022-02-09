@@ -82,15 +82,6 @@ public class Warenbestand {
         }
     }
 
-
-    public Getraenk bekommenGetraenk(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
-        Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
-        if(getraenkefach.isGetraenkefachLeer()){
-            throw new WarenbestandFehler("[bekommenGetraenk] Getränkefach is leer. (return null)");
-        }
-        return getraenkefach.getGetraenke().get(0);
-    }
-
     public Double bekommenGetraenkepreis(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
             Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
             return getraenkefach.getPreis();

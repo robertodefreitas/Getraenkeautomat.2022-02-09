@@ -1,0 +1,125 @@
+@startuml
+'https://plantuml.com/de/activity-diagram-legacy
+'https://plantuml.com/activity-diagram-beta
+
+title
+ Aktivitätsdiagramm
+ <i>Activity Diagram</i>
+ Getraenkeautomat.kaufen(...)
+end title
+
+'======================================
+
+start
+:INPUT: Getraenkewunsch, List<Muenze>;
+:pruefenGetraenkewunschVorhanden;
+:pruefenEinzahlungBetragAusreichend;
+:pruefenMuenzenFuerWechselgeld;
+:befuelleMuenzfaecher;
+:abziehenMuenzenVonMuenzfaecher;
+:kaufenErfolgreich;
+:OUTPUT: GetraenkUndWechselgeld;
+stop
+
+'======================================
+
+start
+floating note left: Mit ERROR vs1
+:INPUT: Getraenkewunsch, List<Muenze>;
+if (pruefenGetraenkewunschVorhanden) then (NOK)
+#pink:error;
+:kaufenFehlerhaft;
+:OUTPUT: GetraenkUndWechselgeld;
+stop
+
+elseif (pruefenEinzahlungBetragAusreichend) then (NOK)
+#pink:error;
+:kaufenFehlerhaft;
+:OUTPUT: GetraenkUndWechselgeld;
+stop
+
+elseif (pruefenMuenzenFuerWechselgeld) then (NOK)
+#pink:error;
+:kaufenFehlerhaft;
+:OUTPUT: GetraenkUndWechselgeld;
+stop
+
+else (OK)
+:befuelleMuenzfaecher;
+:abziehenMuenzenVonMuenzfaecher;
+:kaufenErfolgreich;
+:OUTPUT: GetraenkUndWechselgeld;
+endif
+stop
+
+
+'======================================
+
+start
+floating note left: Mit ERROR vs2
+:INPUT: Getraenkewunsch, List<Muenze>;
+
+if (pruefenGetraenkewunschVorhanden) then
+#pink:error;
+:kaufenFehlerhaft;
+:OUTPUT: GetraenkUndWechselgeld;
+stop
+endif
+
+if (pruefenEinzahlungBetragAusreichend) then
+#pink:error;
+:kaufenFehlerhaft;
+:OUTPUT: GetraenkUndWechselgeld;
+stop
+endif
+
+if (pruefenMuenzenFuerWechselgeld) then
+#pink:error;
+:kaufenFehlerhaft;
+:OUTPUT: GetraenkUndWechselgeld;
+stop
+endif
+
+:befuelleMuenzfaecher;
+:abziehenMuenzenVonMuenzfaecher;
+:kaufenErfolgreich;
+:OUTPUT: GetraenkUndWechselgeld;
+stop
+
+
+'======================================
+
+start
+floating note left: TEMPLATE
+
+if (Page.onSecurityCheck) then (true)
+  :Page.onInit();
+  if (isForward?) then (no)
+    :Process controls;
+    if (continue processing?) then (no)
+      stop
+    endif
+
+    if (isPost?) then (yes)
+      :Page.onPost();
+    else (no)
+      :Page.onGet();
+    endif
+    :Page.onRender();
+  endif
+else (false)
+endif
+
+if (do redirect?) then (yes)
+  :redirect process;
+else
+  if (do forward?) then (yes)
+    :Forward request;
+  else (no)
+    :Render page template;
+  endif
+endif
+
+stop
+
+@enduml

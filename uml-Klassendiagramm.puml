@@ -1,62 +1,93 @@
 @startuml
 'https://plantuml.com/class-diagram
-title Classes - Klassendiagramm
+
+title
+ Klassendiagramm
+ <i>Domain Model</i>
+end title
 
 class Getraenkeautomat <root> {
-+GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, Muenze... einzahlung)
-'+befuelleAutomat()
+'beide werden im Klassendiagramm nicht geschrieben, weil die 1.. beziehung das schon zeigt
+'also, es ist klar dass die vorhanden sind
+'warenbestand
+'geldbestand
+'+GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, Muenze... einzahlung)
++kaufen()
++wechselgeldBerechnenCents()
 +befuelleGetraenkefach()
 +befuelleMuenzfach()
-'+entleereAutomat()
-+entleereGetraenkefach()
-+entleereMuenzfach()
++entleereGetraenkefaecher()
++entleereMuenzfaecher()
++summeAlleGetraenkeMitName()
++summeAlleGetraenkeInGetraenkefach()
++summeAlleMuenzenCentsKasse()
 }
 
 
 'WAREN
 
 class Warenbestand <waren> {
-getraenkefaecher: List<Getraenkfach>
+'getraenkefaecher: List<Getraenkefach>
++neuesGetraenkefach()
++waehlenGetraenkefach()
++pruefenGetraenkewunschVorhanden()
++pruefenEinzahlungBetragAusreichend()
++bekommenGetraenkepreis()
++getraenkKonsumieren()
 +befuelleGetraenkefach()
-+summeAlleGetraenke()
++befuelleGetraenkefaecher()
++summeAlleGetraenkeMitName()
++summeAlleGetraenkeInGetraenkefach()
 }
 
 class Getraenkefach <waren> {
-fachNummer
-getraenke: List<Getraenk>
-maxGetraenkeAnzahl
-preis
+fachNummer: Integer
+'getraenke: List<Getraenk>
+maxGetraenkeAnzhal: Integer
+preis: Double
++getraenkKonsumieren()
 +isGetraenkefachLeer()
 +isGetraenkefachVoll()
 }
 
 class Getraenk <waren> {
-name
+name: String
 }
 
 
 'KASSE
 
 class Geldbestand <kasse> {
-muenzfaecher: List<Muenzfach>
-+befuelleMuenzfach()
-+summeAlleMuenzen()
-+umwandelnBetrat2Muenzen()
-+umwandelnMuenzen2Betrag()
-+umwandelnBetra2Cents()
+'muenzfaecher: List<Muenzfach>
++hinzufuegenMunzeInMuenzfach()
++befuelleMuenzfaecher()
++abziehenMunzeVonMuenzfach()
++abziehenMuenzenVonMuenzfaecher()
++entleereMuenzfaecher()
++summeAlleMuenzenCents()
++umwandelnBetrag2Cents()
 +umwandelnCents2Betrag()
++umwandelnCents2Muenzen()
++umwandelnMuenzen2Cents()
++pruefenMunzfachLeer()
++pruefenMuenzenFuerWechselgeld()
++bekommenMuenztypVonCents()
 }
 
 class Muenzfach <kasse> {
-muenzen: List<Muenze>
-maxMuenzenAnzahl
+fachNummer: Integer
+'muenzen: List<Muenze>
+maxMuenzenAnzahl: Integer
++erstellenMuenzfach()
 +isMuenzfachLeer()
 +isMuenzfachVoll()
++bekommenMuenztypVonCents()
 }
 
 class Muenze <kasse> {
 muenze: Muenztyp
-+getWertInCent()
++bekommenCents()
++bekommenMuenztypVonCents()
 }
 
 
@@ -66,10 +97,12 @@ class GetraenkUndWechselgeld <DTO> {
 getraenk: Getraenk
 wechselgeld: List<Muenze>
 fehler: String
++kaufenErfolgreich()
++kaufenFehlerhaft()
 }
 
 class Getraenkewunsch <DTO> {
-fachNummer
+fachNummer: Integer
 }
 
 enum Muenztyp <kasse> {
@@ -92,12 +125,16 @@ ZWEI_EURO
 'Class --> Association
 'Class --|> Extension
 
-Getraenkeautomat *-> "1" Warenbestand
-Warenbestand -> "1..n" Getraenkefach : ist sortiert in
-Getraenkefach -> "0..n" Getraenk : lagert
+'-down->
+'-right->
+'-left->
+'-up->
+Getraenkeautomat *-down-> "1" Warenbestand
+Warenbestand -down-> "1..n" Getraenkefach : ist sortiert in
+Getraenkefach -down-> "0..n" Getraenk : lagert
 
-Getraenkeautomat *--> "1" Geldbestand
-Geldbestand --> "5" Muenzfach : ist sortiert in
-Muenzfach --> "0..n" Muenze : lagert
+Getraenkeautomat *-down-> "1" Geldbestand
+Geldbestand -down-> "5" Muenzfach : ist sortiert in
+Muenzfach -down-> "0..n" Muenze : lagert
 
 @enduml
