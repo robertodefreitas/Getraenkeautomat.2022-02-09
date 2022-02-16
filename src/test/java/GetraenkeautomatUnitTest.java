@@ -45,9 +45,7 @@ public class GetraenkeautomatUnitTest {
 
     }
 
-    /**
-     * Getränkewunsch nicht vorhanden
-     */
+
     @Test
     public void pruefenGetraenkewunschVorhandenTest(){
         Getraenkewunsch getraenkewunsch = new Getraenkewunsch(5);
@@ -124,7 +122,9 @@ public class GetraenkeautomatUnitTest {
     }
 
 
-
+    /**
+     * Nur für mich persöhnlich
+     */
     @Test
     public void demoSchleifeMuenzen(){
         String methodeName = new Object(){}.getClass().getEnclosingMethod().getName();
