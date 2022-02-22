@@ -11,15 +11,15 @@ end title
 '======================================
 
 start
-:INPUT: Getraenkewunsch, List<Muenze>;
+note left: INPUT: Getraenkewunsch, List<Muenze>
 :pruefenGetraenkewunschVorhanden;
 :pruefenEinzahlungBetragAusreichend;
 :pruefenMuenzenFuerWechselgeld;
 :befuelleMuenzfaecher;
 :abziehenMuenzenVonMuenzfaecher;
 :kaufenErfolgreich;
-:OUTPUT: GetraenkUndWechselgeld;
 stop
+note left: OUTPUT: GetraenkUndWechselgeld;
 
 '======================================
 

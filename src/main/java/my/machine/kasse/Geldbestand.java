@@ -101,13 +101,14 @@ public class Geldbestand {
         return summeCents;
     }
 
-    public Integer umwandelnBetrag2Cents(Double betrag){
-        return (int) Math.round(betrag * 100);
-    }
-
-    public Double umwandelnCents2Betrag(Integer cents){
-        return (cents.doubleValue() / 100);
-    }
+//    // https://dzone.com/articles/never-use-float-and-double-for-monetary-calculatio
+//    public Integer umwandelnBetrag2Cents(Double betrag){
+//        return (int) Math.round(betrag * 100);
+//    }
+//
+//    public Double umwandelnCents2Betrag(Integer cents){
+//        return (cents.doubleValue() / 100);
+//    }
 
     public List<Muenze> umwandelnCents2Muenzen(Integer cents){
         List<Muenze> muenzen = new ArrayList<>();

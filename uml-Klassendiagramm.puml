@@ -13,6 +13,8 @@ class Getraenkeautomat <root> {
 'geldbestand
 '+GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, Muenze... einzahlung)
 +kaufen()
++kaufenErfolgreich()
++kaufenFehlerhaft()
 +wechselgeldBerechnenCents()
 +befuelleGetraenkefach()
 +befuelleMuenzfach()
@@ -44,7 +46,7 @@ class Getraenkefach <waren> {
 fachNummer: Integer
 'getraenke: List<Getraenk>
 maxGetraenkeAnzhal: Integer
-preis: Double
+preis: Integer
 +getraenkKonsumieren()
 +isGetraenkefachLeer()
 +isGetraenkefachVoll()
@@ -65,8 +67,8 @@ class Geldbestand <kasse> {
 +abziehenMuenzenVonMuenzfaecher()
 +entleereMuenzfaecher()
 +summeAlleMuenzenCents()
-+umwandelnBetrag2Cents()
-+umwandelnCents2Betrag()
+'+umwandelnBetrag2Cents()
+'+umwandelnCents2Betrag()
 +umwandelnCents2Muenzen()
 +umwandelnMuenzen2Cents()
 +pruefenMunzfachLeer()

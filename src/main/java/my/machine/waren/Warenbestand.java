@@ -71,18 +71,18 @@ public class Warenbestand {
 //        }
     }
 
-    public void pruefenEinzahlungBetragAusreichend(Getraenkewunsch getraenkewunsch, Double einzahlungBetrag) throws WarenbestandFehler {
+    public void pruefenEinzahlungBetragAusreichend(Getraenkewunsch getraenkewunsch, Integer einzahlungBetrag) throws WarenbestandFehler {
         Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
-        Double getraenkePreis = getraenkefach.getPreis();
+        Integer getraenkePreis = getraenkefach.getPreis();
         if(einzahlungBetrag < getraenkePreis){
             throw new WarenbestandFehler("[pruefenEinzahlungBetragAusreichend] Es wurde nicht genug Geld eingezahlt ("
                     + einzahlungBetrag
-                    + " EURO). Getränkepreis in EURO: "
+                    + " Cent). Getränkepreis in Cent: "
                     + getraenkePreis);
         }
     }
 
-    public Double bekommenGetraenkepreis(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
+    public Integer bekommenGetraenkepreis(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
             Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
             return getraenkefach.getPreis();
     }

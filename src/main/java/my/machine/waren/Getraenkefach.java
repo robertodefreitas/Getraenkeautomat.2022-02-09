@@ -8,7 +8,8 @@ public class Getraenkefach {
     private Integer fachNummer;
     private List<Getraenk> getraenke;
     private Integer maxGetraenkeAnzahl;
-    private Double preis;
+//    private Double preis;
+    private Integer preis;
 
     /* constructor */
 
@@ -16,17 +17,17 @@ public class Getraenkefach {
         this.fachNummer = null;
         this.getraenke = null;
         this.maxGetraenkeAnzahl = 0;
-        this.preis = 0.0;
+        this.preis = 0;
     }
 
     public Getraenkefach(Getraenkewunsch getraenkewunsch){
         this.fachNummer = getraenkewunsch.getFachNummer();
         this.getraenke = null;
         this.maxGetraenkeAnzahl = 0;
-        this.preis = 0.0;
+        this.preis = 0;
     }
 
-    public Getraenkefach(Integer fachNummer, List<Getraenk> getraenke, Integer maxGetraenkeAnzahl, Double preis) {
+    public Getraenkefach(Integer fachNummer, List<Getraenk> getraenke, Integer maxGetraenkeAnzahl, Integer preis) {
         this.fachNummer = fachNummer;
         this.getraenke = getraenke;
         this.maxGetraenkeAnzahl = maxGetraenkeAnzahl;
@@ -59,11 +60,11 @@ public class Getraenkefach {
         this.maxGetraenkeAnzahl = maxGetraenkeAnzahl;
     }
 
-    public Double getPreis() {
+    public Integer getPreis() {
         return preis;
     }
 
-    public void setPreis(Double preis) {
+    public void setPreis(Integer preis) {
         this.preis = preis;
     }
 

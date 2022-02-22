@@ -148,12 +148,12 @@ public class GetraenkeautomatUnitTest {
                 + getraenkeautomat.summeAlleGetraenkeMitName(getraenkName) + " " + getraenkName);
 
 
-        System.out.println("INFO [" + methodeName + "] Summe Kasse (Cent): " + getraenkeautomat.summeAlleMuenzenCentsKasse());
+        System.out.println("INFO [" + methodeName + "] Summe Kasse (Cent) vor Kaufen: " + getraenkeautomat.summeAlleMuenzenCentsKasse());
 
         GetraenkUndWechselgeld getraenkUndWechselgeld = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
         getraenkUndWechselgeld = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
 
-        System.out.println("INFO [" + methodeName + "] Summe Kasse (Cent): " + getraenkeautomat.summeAlleMuenzenCentsKasse());
+        System.out.println("INFO [" + methodeName + "] Summe Kasse (Cent) nach Kaufen: " + getraenkeautomat.summeAlleMuenzenCentsKasse());
 
 
         getraenkName = "wasser";
@@ -164,7 +164,6 @@ public class GetraenkeautomatUnitTest {
         getraenkName = "cola";
         System.out.println("INFO [" + methodeName + "] Getränkeanzahl: "
                 + getraenkeautomat.summeAlleGetraenkeMitName(getraenkName) + " " + getraenkName);
-
 
 
         for (Muenze muenze : einzahlung){
@@ -200,9 +199,9 @@ public class GetraenkeautomatUnitTest {
         ));
 
         List<Getraenkefach> getraenkefaecher = new ArrayList<>(Arrays.asList(
-                new Getraenkefach(1,getraenkeWasser1,11,0.910), // 0.91 -> 1.0 keine Münze kleiner 10c
-                new Getraenkefach(2,getraenkeCola,11,1.2345),
-                new Getraenkefach(3,getraenkeWasser2,11,0.99)
+                new Getraenkefach(1,getraenkeWasser1,11,91), // 0.91 -> 1.0 keine Münze kleiner 10c
+                new Getraenkefach(2,getraenkeCola,11,123),
+                new Getraenkefach(3,getraenkeWasser2,11,99)
         ));
 
         Warenbestand warenbestand = new Warenbestand(getraenkefaecher);
