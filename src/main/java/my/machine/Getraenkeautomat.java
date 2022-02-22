@@ -41,18 +41,20 @@ public class Getraenkeautomat {
         try{
             this.warenbestand.pruefenGetraenkewunschVorhanden(auswahl);
 
-            Double einzahlungBetrag = geldbestand.umwandelnCents2Betrag(geldbestand.umwandelnMuenzen2Cents(einzahlung));
-            this.warenbestand.pruefenEinzahlungBetragAusreichend(auswahl, einzahlungBetrag);
+//            Double einzahlungBetrag = geldbestand.umwandelnCents2Betrag(geldbestand.umwandelnMuenzen2Cents(einzahlung));
+//            this.warenbestand.pruefenEinzahlungBetragAusreichend(auswahl, einzahlungBetrag);
+            this.warenbestand.pruefenEinzahlungBetragAusreichend(auswahl, geldbestand.umwandelnCents2Betrag(geldbestand.umwandelnMuenzen2Cents(einzahlung)));
 
             List<Muenze> wechselgeldMuenzen = this.geldbestand.umwandelnCents2Muenzen(wechselgeldBerechnenCents(auswahl,einzahlung));
             this.geldbestand.pruefenMuenzenFuerWechselgeld(wechselgeldMuenzen);
 
-            Getraenk getraenk = this.warenbestand.getraenkKonsumieren(auswahl);
             this.geldbestand.befuelleMuenzfaecher(einzahlung);
             this.geldbestand.abziehenMuenzenVonMuenzfaecher(wechselgeldMuenzen);
-            GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
 
-            return ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(getraenk, wechselgeldMuenzen);
+            GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
+//            Getraenk getraenk = this.warenbestand.getraenkKonsumieren(auswahl);
+//            return ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(getraenk, wechselgeldMuenzen);
+            return ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(this.warenbestand.getraenkKonsumieren(auswahl), wechselgeldMuenzen);
 
         }
         catch (WarenbestandFehler fehler){
