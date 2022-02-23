@@ -28,25 +28,26 @@ public class Muenze {
 
     /* methods */
 
-    public Integer bekommenCents(){
-        String methodeName = new Object(){}.getClass().getEnclosingMethod().getName();
-
-        switch (this.muenze) {
-            case ZEHN_CENT:
-                return 10;
-            case ZWANZIG_CENT:
-                return 20;
-            case FUENZIG_CENT:
-                return 50;
-            case EIN_EURO:
-                return 100;
-            case ZWEI_EURO:
-                return 200;
-            default:
-                System.out.println("WARN [" + methodeName + "] Münztyp \"" + this.muenze + "\" existiert nicht (return 0).");
-                return 0;
-        }
-    }
+//    // die Werte werden direkt in enum definiert, man brauch diese Methode nicht mehr.
+//    public Integer bekommenCents(){
+//        String methodeName = new Object(){}.getClass().getEnclosingMethod().getName();
+//
+//        switch (this.muenze) {
+//            case ZEHN_CENT:
+//                return 10;
+//            case ZWANZIG_CENT:
+//                return 20;
+//            case FUENZIG_CENT:
+//                return 50;
+//            case EIN_EURO:
+//                return 100;
+//            case ZWEI_EURO:
+//                return 200;
+//            default:
+//                System.out.println("WARN [" + methodeName + "] Münztyp \"" + this.muenze + "\" existiert nicht (return 0).");
+//                return 0;
+//        }
+//    }
 
     public Muenze bekommenMuenztypVonCents(Integer cents){
         String methodeName = new Object(){}.getClass().getEnclosingMethod().getName();

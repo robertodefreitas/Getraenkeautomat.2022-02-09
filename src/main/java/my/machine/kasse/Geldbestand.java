@@ -58,7 +58,8 @@ public class Geldbestand {
 
     public void befuelleMuenzfaecher(List<Muenze> muenzen){
         for (Muenze muenze : muenzen){
-            hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(),muenze);
+            //hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(), muenze);
+            hinzufuegenMunzeInMuenzfach(muenze.getMuenze().getCent(), muenze);
         }
     }
 
@@ -80,7 +81,8 @@ public class Geldbestand {
 
     public void abziehenMuenzenVonMuenzfaecher(List<Muenze> muenzen) {
         for (Muenze muenze : muenzen){
-            abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
+            //abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
+            abziehenMunzeVonMuenzfach(muenze.getMuenze().getCent(), muenze);
         }
     }
 
@@ -95,7 +97,7 @@ public class Geldbestand {
         Integer summeCents = 0;
         for (Muenzfach muenzfach : this.muenzfaecher){
             for (Muenze muenze : muenzfach.getMuenzen()){
-                summeCents = summeCents + muenze.bekommenCents();
+                summeCents = summeCents + muenze.getMuenze().getCent();
             }
         }
         return summeCents;
@@ -149,7 +151,7 @@ public class Geldbestand {
     public Integer umwandelnMuenzen2Cents(List<Muenze> muenzen){
         Integer centsSumme = 0;
         for (Muenze muenze : muenzen){
-            centsSumme = centsSumme + muenze.bekommenCents();
+            centsSumme = centsSumme + muenze.getMuenze().getCent();
         }
         return centsSumme;
     }
@@ -166,7 +168,7 @@ public class Geldbestand {
 
     public void pruefenMuenzenFuerWechselgeldAusreichend(List<Muenze> muenzen) throws GeldbestandFehler {
         for (Muenze muenze : muenzen){
-            pruefenMunzfachLeer(muenze.bekommenCents());
+            pruefenMunzfachLeer(muenze.getMuenze().getCent());
         }
     }
 
