@@ -158,13 +158,13 @@ public class Geldbestand {
         for (Muenzfach muenzfach : this.muenzfaecher){
             if(muenzfach.getId().equals(muenzfachId)){
                 if (muenzfach.isMuenzfachLeer()){
-                    throw new GeldbestandFehler("[pruefenMunzfachLeer] Es ist nicht genug Münzen im Munzfach für Wechselgeld.");
+                    throw new GeldbestandFehler("ERROR Es ist nicht genug Münzen im Munzfach für Wechselgeld.");
                 }
             }
         }
     }
 
-    public void pruefenMuenzenFuerWechselgeld(List<Muenze> muenzen) throws GeldbestandFehler {
+    public void pruefenMuenzenFuerWechselgeldAusreichend(List<Muenze> muenzen) throws GeldbestandFehler {
         for (Muenze muenze : muenzen){
             pruefenMunzfachLeer(muenze.bekommenCents());
         }

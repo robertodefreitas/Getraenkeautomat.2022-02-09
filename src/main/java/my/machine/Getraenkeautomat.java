@@ -36,39 +36,34 @@ public class Getraenkeautomat {
          * Exception Handling bei der Methode kaufen(...)
          * https://www.baeldung.com/java-exceptions
          * https://michaelkipp.de/java/20B%20exceptions-io.html
+         * http://tutorials.jenkov.com/java-exception-handling/catching-multiple-exceptions.html
          */
-
         try{
             this.warenbestand.pruefenGetraenkewunschVorhanden(auswahl);
-            this.warenbestand.pruefenEinzahlungBetragAusreichend(auswahl, geldbestand.umwandelnMuenzen2Cents(einzahlung));
-            this.geldbestand.pruefenMuenzenFuerWechselgeld(wechselgeldBerechnenMuenze(auswahl,einzahlung));
-            this.geldbestand.befuelleMuenzfaecher(einzahlung);
-            this.geldbestand.abziehenMuenzenVonMuenzfaecher(wechselgeldBerechnenMuenze(auswahl,einzahlung));
-
-            return kaufenErfolgreich(auswahl,einzahlung);
+            pruefenEinzahlungBetragAusreichend(auswahl,einzahlung);
+            pruefenMuenzenFuerWechselgeldAusreichend(auswahl,einzahlung);
+            return kaufenErfolgreichAbschliessen(auswahl,einzahlung);
         }
-        catch (WarenbestandFehler fehler){
-            System.out.println("[ERROR] " + fehler.getMessage());
-            return kaufenFehlerhaft(einzahlung,"ERROR");
+        catch (WarenbestandFehler | GeldbestandFehler fehler){
+            return kaufenFehlerhaft(einzahlung,fehler.getMessage());
         }
-        catch (GeldbestandFehler fehler){
-            System.out.println("[ERROR] " + fehler.getMessage());
-            return kaufenFehlerhaft(einzahlung,"ERROR");
-        }
-//        catch (Exception e){
+//        catch (Exception fehler){
 //            System.out.println("[ERROR]" + e.getMessage());
-//            GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
-//            return ergebnisGetraenkUndWechselgeld.kaufenFehlerhaft(einzahlung,"ERROR");
+//            return kaufenFehlerhaft(einzahlung,"ERROR");
 //        }
-
     }
 
-    public GetraenkUndWechselgeld kaufenErfolgreich(Getraenkewunsch auswahl, List<Muenze> einzahlung) throws WarenbestandFehler{
-            GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
-            Getraenk getraenk = this.warenbestand.getraenkKonsumieren(auswahl);
-            List<Muenze> wechselgeldMunzen = wechselgeldBerechnenMuenze(auswahl, einzahlung);
-            ergebnisGetraenkUndWechselgeld = ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(getraenk, wechselgeldMunzen);
-            return ergebnisGetraenkUndWechselgeld;
+    public GetraenkUndWechselgeld kaufenErfolgreichAbschliessen(Getraenkewunsch auswahl, List<Muenze> einzahlung) throws WarenbestandFehler{
+        this.geldbestand.befuelleMuenzfaecher(einzahlung);
+        List<Muenze> wechselgeld = wechselgeldBerechnenMuenze(auswahl,einzahlung);
+        this.geldbestand.abziehenMuenzenVonMuenzfaecher(wechselgeld);
+
+        GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
+        Getraenk getraenk = this.warenbestand.getraenkKonsumieren(auswahl);
+        List<Muenze> wechselgeldMunzen = wechselgeldBerechnenMuenze(auswahl, einzahlung);
+        ergebnisGetraenkUndWechselgeld = ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(getraenk, wechselgeldMunzen);
+
+        return ergebnisGetraenkUndWechselgeld;
     }
 
     public GetraenkUndWechselgeld kaufenFehlerhaft(List<Muenze> einzahlung, String fehler) {
@@ -76,6 +71,17 @@ public class Getraenkeautomat {
         ergebnisGetraenkUndWechselgeld = ergebnisGetraenkUndWechselgeld.kaufenFehlerhaft(einzahlung,fehler);
         return ergebnisGetraenkUndWechselgeld;
     }
+
+    public void pruefenEinzahlungBetragAusreichend(Getraenkewunsch auswahl, List<Muenze> einzahlung) throws WarenbestandFehler {
+        Integer einzahlungCents = geldbestand.umwandelnMuenzen2Cents(einzahlung);
+        this.warenbestand.pruefenEinzahlungBetragAusreichend(auswahl, einzahlungCents);
+    }
+
+    public void pruefenMuenzenFuerWechselgeldAusreichend(Getraenkewunsch auswahl, List<Muenze> einzahlung) throws GeldbestandFehler {
+        List<Muenze> wechselgeldMuenze = wechselgeldBerechnenMuenze(auswahl,einzahlung);
+        this.geldbestand.pruefenMuenzenFuerWechselgeldAusreichend(wechselgeldMuenze);
+    }
+
 
     public List<Muenze> wechselgeldBerechnenMuenze(Getraenkewunsch auswahl, List<Muenze> einzahlung){
         try {
@@ -87,7 +93,8 @@ public class Getraenkeautomat {
 
             return this.geldbestand.umwandelnCents2Muenzen(wechselgeldCents);
 
-        } catch (WarenbestandFehler fehler){
+        }
+        catch (WarenbestandFehler fehler){
             System.out.println("[ERROR] " + fehler.getMessage());
             return new ArrayList<Muenze>();
         }
@@ -96,7 +103,8 @@ public class Getraenkeautomat {
     public void befuelleGetraenkefach(Getraenkewunsch auswahl, List<Getraenk> getraenke){
         try {
             this.warenbestand.befuelleGetraenkefach(auswahl, getraenke);
-        } catch (WarenbestandFehler fehler){
+        }
+        catch (WarenbestandFehler fehler){
                 System.out.println("[ERROR] " + fehler.getMessage());
         }
     }
@@ -120,7 +128,8 @@ public class Getraenkeautomat {
     public Integer summeAlleGetraenkeInGetraenkefach(Getraenkewunsch auswahl){
         try {
             return this.warenbestand.summeAlleGetraenkeInGetraenkefach(auswahl);
-        } catch (WarenbestandFehler fehler){
+        }
+        catch (WarenbestandFehler fehler){
             System.out.println("[ERROR] " + fehler.getMessage());
             return 0;
         }

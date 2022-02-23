@@ -48,16 +48,17 @@ public class Warenbestand {
                 return getraenkefach;
             }
         }
-
-        throw new WarenbestandFehler("[waehlenGetraenkefach] Getränkefach ist nicht vorhanden. Gewünschte Fach-ID: "
-                + getraenkewunsch.getFachNummer());
+        throw new WarenbestandFehler("ERROR Getränkefach ist nicht vorhanden.");
+//        throw new WarenbestandFehler("[waehlenGetraenkefach] Getränkefach ist nicht vorhanden. Gewünschte Fach-ID: "
+//                + getraenkewunsch.getFachNummer());
     }
 
     public void pruefenGetraenkewunschVorhanden(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
         Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
         if(getraenkefach.isGetraenkefachLeer()){
-            throw new WarenbestandFehler("[pruefenGetraenkewunschVorhanden] Getränkewunsch ist nicht vorhanden. Fach ist leer. Gewünschte Fach-ID: "
-                    + getraenkewunsch.getFachNummer());
+            throw new WarenbestandFehler("ERROR Getränkewunsch ist nicht vorhanden. Fach ist leer.");
+//            throw new WarenbestandFehler("[pruefenGetraenkewunschVorhanden] Getränkewunsch ist nicht vorhanden. Fach ist leer. Gewünschte Fach-ID: "
+//                    + getraenkewunsch.getFachNummer());
         }
         /**
          * WICHTIG
@@ -75,10 +76,11 @@ public class Warenbestand {
         Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
         Integer getraenkePreis = getraenkefach.getPreis();
         if(einzahlungBetrag < getraenkePreis){
-            throw new WarenbestandFehler("[pruefenEinzahlungBetragAusreichend] Es wurde nicht genug Geld eingezahlt ("
-                    + einzahlungBetrag
-                    + " Cent). Getränkepreis in Cent: "
-                    + getraenkePreis);
+            throw new WarenbestandFehler("ERROR Es wurde nicht genug Geld eingezahlt.");
+//            throw new WarenbestandFehler("[pruefenEinzahlungBetragAusreichend] Es wurde nicht genug Geld eingezahlt ("
+//                    + einzahlungBetrag
+//                    + " Cent). Getränkepreis in Cent: "
+//                    + getraenkePreis);
         }
     }
 
