@@ -217,6 +217,7 @@ public class GetraenkeautomatUnitTest {
     @Test
     public void enumTest() {
         /**
+         * Assertions.assertEquals("ZEHN_CENT",Muenztyp.ZEHN_CENT);
          * org.opentest4j.AssertionFailedError:
          *      expected: java.lang.String@f0f2775<ZEHN_CENT>
          *      but was: my.machine.kasse.Muenztyp@5a4aa2f2<ZEHN_CENT>

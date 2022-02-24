@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Muenzfach {
-    private Integer id;
+    private String id;
     private List<Muenze> muenzen;
     private Integer maxMuenzenAnzahl;
 
@@ -13,13 +13,13 @@ public class Muenzfach {
 
     public Muenzfach(){}
 
-    public Muenzfach(Integer id, List<Muenze> muenzen, Integer maxMuenzenAnzahl) {
+    public Muenzfach(String id, List<Muenze> muenzen, Integer maxMuenzenAnzahl) {
         this.id = id;
         this.muenzen = muenzen;
         this.maxMuenzenAnzahl = maxMuenzenAnzahl;
     }
 
-    private Muenzfach(Integer id, Integer maxMuenzenAnzahl) {
+    private Muenzfach(String id, Integer maxMuenzenAnzahl) {
         this.id = id;
         this.muenzen = new ArrayList<>();
         this.maxMuenzenAnzahl = maxMuenzenAnzahl;
@@ -27,11 +27,11 @@ public class Muenzfach {
 
     /* getters and setters */
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -54,7 +54,7 @@ public class Muenzfach {
 
     /* methods */
 
-    public Muenzfach erstellenMuenzfach(Integer id, Integer maxMuenzenAnzahl){
+    public Muenzfach erstellenMuenzfach(String id, Integer maxMuenzenAnzahl){
         return new Muenzfach(id, maxMuenzenAnzahl);
     }
 
