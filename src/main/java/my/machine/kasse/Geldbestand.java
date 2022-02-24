@@ -46,9 +46,9 @@ public class Geldbestand {
 //        ));
 //    }
 
-    public void hinzufuegenMunzeInMuenzfach(String muenzfachId, Muenze muenze){
+    public void hinzufuegenMunzeInMuenzfach(Muenze muenze){
         for (Muenzfach muenzfach : this.muenzfaecher){
-            if(muenzfach.getId().equals(muenzfachId)){
+            if(muenzfach.getId().equals(muenze.getMuenze().name())){
                 Integer indexOfMuenzfach = muenzfaecher.indexOf(muenzfach);
                 muenzfach.getMuenzen().add(muenze);
                 this.muenzfaecher.set(indexOfMuenzfach,muenzfach);
@@ -59,13 +59,13 @@ public class Geldbestand {
     public void befuelleMuenzfaecher(List<Muenze> muenzen){
         for (Muenze muenze : muenzen){
             //hinzufuegenMunzeInMuenzfach(muenze.bekommenCents(), muenze);
-            hinzufuegenMunzeInMuenzfach(muenze.getMuenze().name(), muenze);
+            hinzufuegenMunzeInMuenzfach(muenze);
         }
     }
 
-    public void abziehenMunzeVonMuenzfach(String muenzfachId, Muenze muenze) {
+    public void abziehenMunzeVonMuenzfach(Muenze muenze) {
         for (Muenzfach muenzfach : this.muenzfaecher){
-            if(muenzfach.getId().equals(muenzfachId)){
+            if(muenzfach.getId().equals(muenze.getMuenze().name())){
                 Integer indexOfMuenzfach = muenzfaecher.indexOf(muenzfach);
 
                 //muenzfach.getMuenzen().remove(new Muenze(muenzfachId)); // so funktioniert nicht
@@ -85,7 +85,7 @@ public class Geldbestand {
     public void abziehenMuenzenVonMuenzfaecher(List<Muenze> muenzen) {
         for (Muenze muenze : muenzen){
             //abziehenMunzeVonMuenzfach(muenze.bekommenCents(),muenze);
-            abziehenMunzeVonMuenzfach(muenze.getMuenze().name(), muenze);
+            abziehenMunzeVonMuenzfach(muenze);
         }
     }
 
