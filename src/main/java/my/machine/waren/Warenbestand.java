@@ -90,7 +90,7 @@ public class Warenbestand {
     }
 
 
-    public Getraenk getraenkKonsumieren(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
+    public Getraenk getraenkAusgeben(Getraenkewunsch getraenkewunsch) throws WarenbestandFehler {
         Getraenkefach getraenkefach = waehlenGetraenkefach(getraenkewunsch);
         return getraenkefach.getraenkKonsumieren(getraenkewunsch);
     }

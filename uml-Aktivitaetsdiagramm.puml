@@ -15,7 +15,11 @@ note left: INPUT: Getraenkewunsch, List<Muenze>
 :pruefenGetraenkewunschVorhanden;
 :pruefenEinzahlungBetragAusreichend;
 :pruefenMuenzenFuerWechselgeldAusreichend;
+:befuelleMuenzfaecher;
+:abziehenMuenzenVonMuenzfaecher;
+:getraenkAusgeben;
 :kaufenErfolgreichAbschliessen;
+
 stop
 note left: OUTPUT: GetraenkUndWechselgeld;
 
