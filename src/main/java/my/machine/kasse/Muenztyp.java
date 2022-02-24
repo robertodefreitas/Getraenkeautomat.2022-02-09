@@ -17,7 +17,7 @@ public enum Muenztyp {
     EIN_EURO(100),
     ZWEI_EURO(200);
 
-    private Integer cent;
+    private final Integer cent;
 
     private Muenztyp(Integer cent) {
         this.cent = cent;
@@ -25,5 +25,14 @@ public enum Muenztyp {
 
     public Integer getCent(){
         return cent;
+    }
+
+    public static Muenztyp typOfCent(Integer gesuchterCent) {
+        for (Muenztyp mt : values()) {
+            if (mt.cent.equals(gesuchterCent)) {
+                return mt;
+            }
+        }
+        return null;
     }
 }

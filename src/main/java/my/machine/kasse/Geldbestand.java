@@ -14,11 +14,11 @@ public class Geldbestand {
 
     public Geldbestand(Integer maxMuenzenAnzahl) {
         this.muenzfaecher = new ArrayList<>(Arrays.asList(
-                new Muenzfach().erstellenMuenzfach(10,maxMuenzenAnzahl),
-                new Muenzfach().erstellenMuenzfach(20,maxMuenzenAnzahl),
-                new Muenzfach().erstellenMuenzfach(50,maxMuenzenAnzahl),
-                new Muenzfach().erstellenMuenzfach(100,maxMuenzenAnzahl),
-                new Muenzfach().erstellenMuenzfach(200,maxMuenzenAnzahl)
+                new Muenzfach().erstellenMuenzfach(Muenztyp.ZEHN_CENT.getCent(), maxMuenzenAnzahl),
+                new Muenzfach().erstellenMuenzfach(Muenztyp.ZWANZIG_CENT.getCent(), maxMuenzenAnzahl),
+                new Muenzfach().erstellenMuenzfach(Muenztyp.FUENZIG_CENT.getCent(), maxMuenzenAnzahl),
+                new Muenzfach().erstellenMuenzfach(Muenztyp.EIN_EURO.getCent(), maxMuenzenAnzahl),
+                new Muenzfach().erstellenMuenzfach(Muenztyp.ZWEI_EURO.getCent(), maxMuenzenAnzahl)
         ));
     }
 
@@ -115,8 +115,13 @@ public class Geldbestand {
     public List<Muenze> umwandelnCents2Muenzen(Integer cents){
         List<Muenze> muenzen = new ArrayList<>();
 
-        // ORDER: first: 200 ... last: 1
-        Integer[] muenzeIds = {200, 100, 50, 20, 10};
+        // ORDER: first: ZWEI_EURO ... last: ZEHN_CENT
+        Integer[] muenzeIds = {
+                Muenztyp.ZWEI_EURO.getCent(),
+                Muenztyp.EIN_EURO.getCent(),
+                Muenztyp.FUENZIG_CENT.getCent(),
+                Muenztyp.ZWANZIG_CENT.getCent(),
+                Muenztyp.ZEHN_CENT.getCent()};
 
         for (Integer muenzeId: muenzeIds){
             Integer muenzeCents = muenzeId;
