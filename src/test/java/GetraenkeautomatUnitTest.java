@@ -17,44 +17,53 @@ import java.util.List;
 
 public class GetraenkeautomatUnitTest {
 
-    static Getraenkeautomat getraenkeautomat;
+    private static Getraenkeautomat getraenkeautomat;
 
     /* methods */
-    @BeforeAll // needs static for the methode and variable getraenkeautomat
+
+    @BeforeAll
     public static void startGetraenkeautomat(){
+        Warenbestand warenbestand = startenUndBefuellenWarenbestand();
+        Geldbestand geldbestand = startenUndBefuellenGeldbestand();
+        getraenkeautomat = new Getraenkeautomat(warenbestand,geldbestand);
+    }
 
-        /**
-         * Start Warenbestand
-         */
-
-        List<Getraenk> getraenkeWasser1 = new ArrayList<>(Arrays.asList(
-                new Getraenk("wasser")
+    public static Warenbestand startenUndBefuellenWarenbestand(){
+        List<Getraenkefach> getraenkefaecher = new ArrayList<>(Arrays.asList(
+                new Getraenkefach(1,mehrereGetraenkeBekommenWasser(),11,120), // 0.91 -> 1.0 keine Münze kleiner 10c
+                new Getraenkefach(2,mehrereGetraenkeBekommenCola(),11,123),
+                new Getraenkefach(3,mehrereGetraenkeBekommenWasser(),11,199)
         ));
 
-        List<Getraenk> getraenkeWasser2 = new ArrayList<>(Arrays.asList(
+        return new Warenbestand(getraenkefaecher);
+    }
+
+    public static Geldbestand startenUndBefuellenGeldbestand(){
+        Geldbestand geldbestand = new Geldbestand(15);
+        geldbestand.befuelleMuenzfaecher(mehrereMuenzeBekommen());
+        return geldbestand;
+    }
+
+
+    public static List<Getraenk> mehrereGetraenkeBekommenWasser(){
+        List<Getraenk> getraenke = new ArrayList<>(Arrays.asList(
                 new Getraenk("wasser"),
                 new Getraenk("wasser")
         ));
+        return getraenke;
+    }
 
-        List<Getraenk> getraenkeCola = new ArrayList<>(Arrays.asList(
+    public static List<Getraenk> mehrereGetraenkeBekommenCola(){
+        List<Getraenk> getraenke = new ArrayList<>(Arrays.asList(
                 new Getraenk("cola"),
                 new Getraenk("cola")
         ));
-
-        List<Getraenkefach> getraenkefaecher = new ArrayList<>(Arrays.asList(
-                new Getraenkefach(1,getraenkeWasser1,11,120), // 0.91 -> 1.0 keine Münze kleiner 10c
-                new Getraenkefach(2,getraenkeCola,11,123),
-                new Getraenkefach(3,getraenkeWasser2,11,99)
-        ));
-
-        Warenbestand warenbestand = new Warenbestand(getraenkefaecher);
+        return getraenke;
+    }
 
 
-        /**
-         * Start Geldbestand
-         */
-
-        List<Muenze> kasseStartenMitMuenzen = new ArrayList<>(Arrays.asList(
+    public static List<Muenze> mehrereMuenzeBekommen(){
+        List<Muenze> mehrereMuenze = new ArrayList<>(Arrays.asList(
                 new Muenze(Muenztyp.ZEHN_CENT),
                 new Muenze(Muenztyp.ZEHN_CENT),
                 new Muenze(Muenztyp.ZEHN_CENT),
@@ -75,17 +84,8 @@ public class GetraenkeautomatUnitTest {
                 new Muenze(Muenztyp.EIN_EURO)
         ));
 
-        Geldbestand geldbestand = new Geldbestand(15);
-
-        geldbestand.befuelleMuenzfaecher(kasseStartenMitMuenzen);
-
-
-        /**
-         * Start Getraenkeautomat
-         */
-        getraenkeautomat = new Getraenkeautomat(warenbestand,geldbestand);
+        return  mehrereMuenze;
     }
-
 
     /* TESTS */
 
@@ -105,8 +105,6 @@ public class GetraenkeautomatUnitTest {
         GetraenkUndWechselgeld getraenkUndWechselgeldExpected = new GetraenkUndWechselgeld();
         getraenkUndWechselgeldExpected = getraenkUndWechselgeldExpected.kaufenErfolgreich(getraenkExpected,wechselgeldExpected);
 
-        //startGetraenkeautomat();
-
         Assertions.assertEquals(1000, getraenkeautomat.summeAlleMuenzenCentsKasse());
 
         GetraenkUndWechselgeld getraenkUndWechselgeldActual = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
@@ -119,14 +117,31 @@ public class GetraenkeautomatUnitTest {
                     getraenkUndWechselgeldActual.getWechselgeld().get(i).getMuenze()
             );
         }
-
-        getraenkUndWechselgeldActual = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
-
-        Assertions.assertEquals(1120, getraenkeautomat.summeAlleMuenzenCentsKasse());
-        Assertions.assertEquals("ERROR Getränkewunsch ist nicht vorhanden. Fach ist leer.", getraenkUndWechselgeldActual.getFehler());
-
     }
 
+    @Test
+    public void getraenkIstNichtVorhandenTest() throws Exception {
+        Getraenkewunsch getraenkewunsch = new Getraenkewunsch(3);
+        List<Muenze> einzahlung = new ArrayList<>(Arrays.asList(
+                new Muenze(Muenztyp.ZWEI_EURO),
+                new Muenze(Muenztyp.ZWEI_EURO),
+                new Muenze(Muenztyp.ZWEI_EURO),
+                new Muenze(Muenztyp.ZWEI_EURO)
+        ));
+
+        GetraenkUndWechselgeld getraenkUndWechselgeldActual;
+        Integer summeAlleGetraenke = getraenkeautomat.summeAlleGetraenkeInGetraenkefach(getraenkewunsch);
+        while (summeAlleGetraenke > 0) {
+            getraenkUndWechselgeldActual = getraenkeautomat.kaufen(getraenkewunsch, einzahlung);
+            getraenkeautomat.befuelleMuenzfach(mehrereMuenzeBekommen());
+
+            einzahlung = getraenkUndWechselgeldActual.getWechselgeld();
+            summeAlleGetraenke = getraenkeautomat.summeAlleGetraenkeInGetraenkefach(getraenkewunsch);
+        }
+
+        getraenkUndWechselgeldActual = getraenkeautomat.kaufen(getraenkewunsch, einzahlung);
+        Assertions.assertEquals("ERROR Getränkewunsch ist nicht vorhanden. Fach ist leer.", getraenkUndWechselgeldActual.getFehler());
+    }
 
     @Test
     public void pruefenGetraenkewunschVorhandenTest(){
@@ -136,9 +151,7 @@ public class GetraenkeautomatUnitTest {
                 new Muenze(Muenztyp.EIN_EURO)
         ));
 
-        startGetraenkeautomat();
         GetraenkUndWechselgeld getraenkUndWechselgeld = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
-
         Assertions.assertEquals("ERROR Getränkefach ist nicht vorhanden.", getraenkUndWechselgeld.getFehler());
     }
 
@@ -151,7 +164,8 @@ public class GetraenkeautomatUnitTest {
                 new Muenze(Muenztyp.FUENZIG_CENT)
         ));
 
-        startGetraenkeautomat();
+        getraenkeautomat.entleereMuenzfaecher();
+        getraenkeautomat.befuelleMuenzfach(mehrereMuenzeBekommen());
 
         Assertions.assertEquals(1000, getraenkeautomat.summeAlleMuenzenCentsKasse());
 
@@ -169,11 +183,11 @@ public class GetraenkeautomatUnitTest {
                 new Muenze(Muenztyp.ZWEI_EURO)
         ));
 
-        startGetraenkeautomat();
         Assertions.assertEquals(1000, getraenkeautomat.summeAlleMuenzenCentsKasse());
 
         getraenkeautomat.entleereMuenzfaecher();
         GetraenkUndWechselgeld getraenkUndWechselgeld = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
+
         Assertions.assertEquals("ERROR Es ist nicht genug Münzen im Munzfach für Wechselgeld.", getraenkUndWechselgeld.getFehler());
     }
 
@@ -190,7 +204,6 @@ public class GetraenkeautomatUnitTest {
             getraenkeWasser.add(new Getraenk("wasser"));
         }
 
-        startGetraenkeautomat();
         Assertions.assertEquals(1, getraenkeautomat.summeAlleGetraenkeInGetraenkefach(getraenkewunsch));
 
         getraenkeautomat.entleereGetraenkefaecher();
@@ -214,7 +227,7 @@ public class GetraenkeautomatUnitTest {
      * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html
      * https://www.baeldung.com/java-enum-values
      */
-    @Test
+    @Deprecated
     public void enumTest() {
         /**
          * Assertions.assertEquals("ZEHN_CENT",Muenztyp.ZEHN_CENT);
