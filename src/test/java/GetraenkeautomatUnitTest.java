@@ -205,8 +205,45 @@ public class GetraenkeautomatUnitTest {
 
 
     /**
-     * Nur für mich persöhnlich
+     * ## ##################################################
+     * ## Nur für mich persöhnlich
+     * ## ##################################################
      */
+
+    /**
+     * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html
+     * https://www.baeldung.com/java-enum-values
+     */
+    @Test
+    public void enumTest() {
+        /**
+         * org.opentest4j.AssertionFailedError:
+         *      expected: java.lang.String@f0f2775<ZEHN_CENT>
+         *      but was: my.machine.kasse.Muenztyp@5a4aa2f2<ZEHN_CENT>
+         */
+        Assertions.assertNotEquals("ZEHN_CENT",Muenztyp.ZEHN_CENT);
+        Assertions.assertEquals(Muenztyp.valueOf("ZEHN_CENT"),Muenztyp.ZEHN_CENT);
+        Assertions.assertEquals("ZEHN_CENT",Muenztyp.ZEHN_CENT.name());
+        Assertions.assertEquals("ZEHN_CENT",Muenztyp.ZEHN_CENT.toString());
+        Assertions.assertEquals(10,Muenztyp.ZEHN_CENT.cent);
+        //Assertions.assertEquals("ZEHN_CENT",Muenztyp(10));
+
+        Assertions.assertEquals(0,Muenztyp.ZEHN_CENT.ordinal());
+        Assertions.assertEquals(4,Muenztyp.ZWEI_EURO.ordinal());
+
+        Assertions.assertEquals(Muenztyp.class,Muenztyp.ZEHN_CENT.getDeclaringClass());
+
+        Muenztyp muenze101 = Muenztyp.ZEHN_CENT;
+        Muenztyp muenze102 = Muenztyp.ZEHN_CENT;
+        Muenztyp muenze103 = muenze101;
+        Assertions.assertTrue(muenze101.equals(muenze102));
+        Assertions.assertTrue(muenze101.equals(muenze103));
+
+
+        Assertions.assertEquals(10,EnumTest.A0.valueInt);
+    }
+
+
     @Deprecated
     public void demoSchleifeMuenzen(){
         String methodeName = new Object(){}.getClass().getEnclosingMethod().getName();

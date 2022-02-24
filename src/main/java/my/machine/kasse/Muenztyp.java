@@ -10,6 +10,10 @@ public enum Muenztyp {
 }
 */
 
+/**
+ * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html
+ * https://www.baeldung.com/java-enum-values
+ */
 public enum Muenztyp {
     ZEHN_CENT(10),
     ZWANZIG_CENT(20),
@@ -17,22 +21,24 @@ public enum Muenztyp {
     EIN_EURO(100),
     ZWEI_EURO(200);
 
-    private final Integer cent;
+//    private final Integer cent;
+    public final Integer cent;
 
     private Muenztyp(Integer cent) {
         this.cent = cent;
     }
 
-    public Integer getCent(){
-        return cent;
-    }
+//    public Integer getCent(){
+//        return cent;
+//    }
+//
+//    public static Muenztyp typOfCent(Integer gesuchterCent) {
+//        for (Muenztyp mt : values()) {
+//            if (mt.cent.equals(gesuchterCent)) {
+//                return mt;
+//            }
+//        }
+//        return null;
+//    }
 
-    public static Muenztyp typOfCent(Integer gesuchterCent) {
-        for (Muenztyp mt : values()) {
-            if (mt.cent.equals(gesuchterCent)) {
-                return mt;
-            }
-        }
-        return null;
-    }
 }

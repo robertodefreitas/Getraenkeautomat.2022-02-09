@@ -9,7 +9,6 @@ import my.machine.waren.Getraenk;
 import my.machine.waren.Warenbestand;
 import my.machine.waren.WarenbestandFehler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Getraenkeautomat {

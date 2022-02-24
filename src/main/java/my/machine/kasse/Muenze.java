@@ -12,7 +12,12 @@ public class Muenze {
 
     public Muenze(Integer cent) {
 //        this.muenze = bekommenMuenztypVonCents(cent).getMuenze();
-        this.muenze = Muenztyp.typOfCent(cent);
+//        this.muenze = Muenztyp.typOfCent(cent);
+        for (Muenztyp muenztyp : Muenztyp.values()) {
+            if(muenztyp.cent == cent){
+                this.muenze = muenztyp;
+            }
+        }
     }
 
 
