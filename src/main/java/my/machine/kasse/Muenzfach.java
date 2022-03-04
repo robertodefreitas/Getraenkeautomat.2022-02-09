@@ -72,8 +72,8 @@ public class Muenzfach {
         return false;
     }
 
-    public Muenze bekommenMuenztypVonCents(Integer cents){
-        return new Muenze(cents);
-    }
+//    public Muenze bekommenMuenztypVonCents(Integer cents){
+//        return new Muenze(cents);
+//    }
 
 }

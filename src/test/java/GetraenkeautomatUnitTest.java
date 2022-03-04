@@ -239,7 +239,7 @@ public class GetraenkeautomatUnitTest {
         Assertions.assertEquals(Muenztyp.valueOf("ZEHN_CENT"),Muenztyp.ZEHN_CENT);
         Assertions.assertEquals("ZEHN_CENT",Muenztyp.ZEHN_CENT.name());
         Assertions.assertEquals("ZEHN_CENT",Muenztyp.ZEHN_CENT.toString());
-        Assertions.assertEquals(10,Muenztyp.ZEHN_CENT.cent);
+        //Assertions.assertEquals(10,Muenztyp.ZEHN_CENT.cent);
         //Assertions.assertEquals("ZEHN_CENT",Muenztyp(10));
 
         Assertions.assertEquals(0,Muenztyp.ZEHN_CENT.ordinal());

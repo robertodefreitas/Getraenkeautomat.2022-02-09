@@ -63,11 +63,11 @@ public class GetraenkUndWechselgeld {
 
     /* methods */
 
-    public GetraenkUndWechselgeld kaufenErfolgreich(Getraenk getraenk, List<Muenze> wechselgeld){
+    public static GetraenkUndWechselgeld kaufenErfolgreich(Getraenk getraenk, List<Muenze> wechselgeld){
         return new GetraenkUndWechselgeld(getraenk, wechselgeld);
     }
 
-    public GetraenkUndWechselgeld kaufenFehlerhaft(List<Muenze> einzahlung, String fehler){
+    public static GetraenkUndWechselgeld kaufenFehlerhaft(List<Muenze> einzahlung, String fehler){
         return new GetraenkUndWechselgeld(einzahlung, fehler);
     }
 }

@@ -99,12 +99,21 @@ public class Geldbestand {
     public Integer summeAlleMuenzenCents(){
         Integer summeCents = 0;
         for (Muenzfach muenzfach : this.muenzfaecher){
-            for (Muenze muenze : muenzfach.getMuenzen()){
-                summeCents = summeCents + muenze.getMuenze().cent;
-            }
+            summeCents = summeCents + Muenztyp.summeAlleMuenzenCents(muenzfach.getMuenzen());
         }
         return summeCents;
     }
+
+//    public Integer summeAlleMuenzenCents(){
+//        Integer summeCents = 0;
+//        for (Muenzfach muenzfach : this.muenzfaecher){
+//            for (Muenze muenze : muenzfach.getMuenzen()){
+//                summeCents = summeCents + muenze.getMuenze().cent;
+//            }
+//        }
+//        return summeCents;
+//    }
+
 
 //    // https://dzone.com/articles/never-use-float-and-double-for-monetary-calculatio
 //    public Integer umwandelnBetrag2Cents(Double betrag){
@@ -115,61 +124,69 @@ public class Geldbestand {
 //        return (cents.doubleValue() / 100);
 //    }
 
-    public List<Muenze> umwandelnCents2Muenzen(Integer cent){
-        List<Muenze> muenzen = new ArrayList<>();
+     public List<Muenze> umwandelnCents2Muenzen(Integer cent){
+        return Muenztyp.umwandelnCents2Muenzen(cent);
+     }
 
-        // ORDER: first: ZWEI_EURO ... last: ZEHN_CENT
-        Muenztyp[] allMuenzetyp = {
-                Muenztyp.ZWEI_EURO,
-                Muenztyp.EIN_EURO,
-                Muenztyp.FUENZIG_CENT,
-                Muenztyp.ZWANZIG_CENT,
-                Muenztyp.ZEHN_CENT};
-
-        for (Muenztyp muenzetyp: allMuenzetyp){
-            Integer muenzeCent = muenzetyp.cent;
-
-            while (cent >= muenzeCent) {
-                muenzen.add( new Muenze(muenzetyp) );
-                cent = cent - muenzeCent;
-            }
-
-//            /**
-//             * https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html
-//             * ## public static int floorDiv(int x, int y)
-//             * For example, floorDiv(4, 3) == 1 and (4 / 3) == 1.
-//             *
-//             * Returns the floor modulus of the int arguments.
-//             * ## public static int floorMod(int x, int y)
-//             * floorMod(5, 3) == 2;   and (5 % 3) == 2
-//             *     x - the dividend
-//             *     y - the divisor
-//             */
-//            Integer result = Math.floorDiv(cent,muenzeCent);
-//            Integer resultMod = Math.floorMod(cent,muenzeCent);
+//    public List<Muenze> umwandelnCents2Muenzen(Integer cent){
+//        List<Muenze> muenzen = new ArrayList<>();
 //
-//            if (result != 0){
-//                for (int i = 0; i < result; i++) {
-//                    muenzen.add(bekommenMuenztypVonCent(muenzeCent));
-//                }
-//                cent = cent - result*muenzeCent;
+//        // ORDER: first: ZWEI_EURO ... last: ZEHN_CENT
+//        Muenztyp[] allMuenzetyp = {
+//                Muenztyp.ZWEI_EURO,
+//                Muenztyp.EIN_EURO,
+//                Muenztyp.FUENZIG_CENT,
+//                Muenztyp.ZWANZIG_CENT,
+//                Muenztyp.ZEHN_CENT};
+//
+//        for (Muenztyp muenzetyp: allMuenzetyp){
+//            Integer muenzeCent = muenzetyp.cent;
+//
+//            while (cent >= muenzeCent) {
+//                muenzen.add( new Muenze(muenzetyp) );
+//                cent = cent - muenzeCent;
 //            }
-//            if (resultMod != 0) {
-//                cent = resultMod;
-//            }
-
-        }
-
-        return muenzen;
-    }
+//
+////            /**
+////             * https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html
+////             * ## public static int floorDiv(int x, int y)
+////             * For example, floorDiv(4, 3) == 1 and (4 / 3) == 1.
+////             *
+////             * Returns the floor modulus of the int arguments.
+////             * ## public static int floorMod(int x, int y)
+////             * floorMod(5, 3) == 2;   and (5 % 3) == 2
+////             *     x - the dividend
+////             *     y - the divisor
+////             */
+////            Integer result = Math.floorDiv(cent,muenzeCent);
+////            Integer resultMod = Math.floorMod(cent,muenzeCent);
+////
+////            if (result != 0){
+////                for (int i = 0; i < result; i++) {
+////                    muenzen.add(bekommenMuenztypVonCent(muenzeCent));
+////                }
+////                cent = cent - result*muenzeCent;
+////            }
+////            if (resultMod != 0) {
+////                cent = resultMod;
+////            }
+//
+//        }
+//
+//        return muenzen;
+//    }
 
     public Integer umwandelnMuenzen2Cents(List<Muenze> muenzen){
-        Integer centSumme = 0;
-        for (Muenze muenze : muenzen){
-            centSumme = centSumme + muenze.getMuenze().cent;
-        }
-        return centSumme;
+        return Muenztyp.umwandelnMuenzen2Cents(muenzen);
     }
+
+//    public Integer umwandelnMuenzen2Cents(List<Muenze> muenzen){
+//        Integer centSumme = 0;
+//        for (Muenze muenze : muenzen){
+//            centSumme = centSumme + muenze.getMuenze().cent;
+//        }
+//        return centSumme;
+//    }
 
     public void pruefenMunzfachLeer(String muenzfachId) throws GeldbestandFehler {
         for (Muenzfach muenzfach : this.muenzfaecher){
@@ -187,8 +204,8 @@ public class Geldbestand {
         }
     }
 
-    public Muenze bekommenMuenztypVonCent(Integer cent){
-        return new Muenzfach().bekommenMuenztypVonCents(cent);
-    }
+//    public Muenze bekommenMuenztypVonCent(Integer cent){
+//        return new Muenzfach().bekommenMuenztypVonCents(cent);
+//    }
 
 }

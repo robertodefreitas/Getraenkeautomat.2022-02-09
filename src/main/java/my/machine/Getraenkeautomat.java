@@ -64,15 +64,16 @@ public class Getraenkeautomat {
     }
 
     public GetraenkUndWechselgeld kaufenErfolgreichAbschliessen(Getraenk ausgewaehltesGetraenk, List<Muenze> wechselgeldMunzen) {
-        GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
-        ergebnisGetraenkUndWechselgeld = ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(ausgewaehltesGetraenk, wechselgeldMunzen);
-        return ergebnisGetraenkUndWechselgeld;
+        //GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
+        //ergebnisGetraenkUndWechselgeld = ergebnisGetraenkUndWechselgeld.kaufenErfolgreich(ausgewaehltesGetraenk, wechselgeldMunzen);
+        return GetraenkUndWechselgeld.kaufenErfolgreich(ausgewaehltesGetraenk, wechselgeldMunzen);
     }
 
     public GetraenkUndWechselgeld kaufenFehlerhaft(List<Muenze> einzahlung, String fehler) {
-        GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
-        ergebnisGetraenkUndWechselgeld = ergebnisGetraenkUndWechselgeld.kaufenFehlerhaft(einzahlung,fehler);
-        return ergebnisGetraenkUndWechselgeld;
+//        GetraenkUndWechselgeld ergebnisGetraenkUndWechselgeld = new GetraenkUndWechselgeld();
+//        ergebnisGetraenkUndWechselgeld = ergebnisGetraenkUndWechselgeld.kaufenFehlerhaft(einzahlung,fehler);
+//        return ergebnisGetraenkUndWechselgeld;
+        return GetraenkUndWechselgeld.kaufenFehlerhaft(einzahlung, fehler);
     }
 
     public void pruefenEinzahlungBetragAusreichend(Getraenkewunsch auswahl, List<Muenze> einzahlung) throws WarenbestandFehler {
@@ -87,15 +88,15 @@ public class Getraenkeautomat {
 
 
     public List<Muenze> wechselgeldBerechnenMuenze(Getraenkewunsch auswahl, List<Muenze> einzahlung) throws WarenbestandFehler {
-            Integer einzahlungCents = this.geldbestand.umwandelnMuenzen2Cents(einzahlung);
-            Integer getraenkpreisCents = this.warenbestand.bekommenGetraenkepreis(auswahl);
+        Integer einzahlungCents = this.geldbestand.umwandelnMuenzen2Cents(einzahlung);
+        Integer getraenkpreisCents = this.warenbestand.bekommenGetraenkepreis(auswahl);
 
-            //Integer wechselgeldBetrag = warenbestand.getWechselgeldBetrag(auswahl, einzahlungBetrag); // alternativ
-            Integer wechselgeldCents = einzahlungCents - getraenkpreisCents;
+        //Integer wechselgeldBetrag = warenbestand.getWechselgeldBetrag(auswahl, einzahlungBetrag); // alternativ
+        Integer wechselgeldCents = einzahlungCents - getraenkpreisCents;
 
-            List<Muenze> wechselgeldMuenze = this.geldbestand.umwandelnCents2Muenzen(wechselgeldCents);
+        List<Muenze> wechselgeldMuenze = this.geldbestand.umwandelnCents2Muenzen(wechselgeldCents);
 
-            return wechselgeldMuenze;
+        return wechselgeldMuenze;
     }
 
     public void befuelleGetraenkefach(Getraenkewunsch auswahl, List<Getraenk> getraenke){
