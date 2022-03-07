@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Muenzfach {
     private String id;
+    //private Muenztyp id;
     private List<Muenze> muenzen;
     private Integer maxMuenzenAnzahl;
 

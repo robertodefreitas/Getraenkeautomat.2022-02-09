@@ -102,8 +102,9 @@ public class GetraenkeautomatUnitTest {
                 new Muenze(Muenztyp.ZWANZIG_CENT),
                 new Muenze(Muenztyp.ZEHN_CENT)
         ));
-        GetraenkUndWechselgeld getraenkUndWechselgeldExpected = new GetraenkUndWechselgeld();
-        getraenkUndWechselgeldExpected = getraenkUndWechselgeldExpected.kaufenErfolgreich(getraenkExpected,wechselgeldExpected);
+        //GetraenkUndWechselgeld getraenkUndWechselgeldExpected = new GetraenkUndWechselgeld();
+        //getraenkUndWechselgeldExpected = getraenkUndWechselgeldExpected.kaufenErfolgreich(getraenkExpected,wechselgeldExpected);
+        GetraenkUndWechselgeld getraenkUndWechselgeldExpected = GetraenkUndWechselgeld.kaufenErfolgreich(getraenkExpected,wechselgeldExpected);
 
         Assertions.assertEquals(1000, getraenkeautomat.summeAlleMuenzenCentsKasse());
 

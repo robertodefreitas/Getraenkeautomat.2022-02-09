@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html
  * https://www.baeldung.com/java-enum-values
+ * ORDER: first: ZWEI_EURO ... last: ZEHN_CENT
  */
 public enum Muenztyp {
     ZWEI_EURO(200),

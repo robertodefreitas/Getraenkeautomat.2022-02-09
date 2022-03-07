@@ -13,7 +13,7 @@ public class GetraenkUndWechselgeld {
 
     /* constructor */
 
-    public GetraenkUndWechselgeld() { }
+//    public GetraenkUndWechselgeld() { }
 
 //    public GetraenkUndWechselgeld(Getraenk getraenk, List<Muenze> wechselgeld, String fehler) {
 //        this.getraenk = getraenk;
