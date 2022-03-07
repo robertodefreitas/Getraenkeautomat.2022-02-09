@@ -1,3 +1,5 @@
+package demo;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,15 +20,15 @@ public enum EnumTest {
         this.valueInt = valueInt;
     }
 
-//    private static final Map<Integer, EnumTest> BY_VALUE = new HashMap<>();
+//    private static final Map<Integer, demo.EnumTest> BY_VALUE = new HashMap<>();
 //
 //    static {
-//        for (EnumTest et : values()) {
+//        for (demo.EnumTest et : values()) {
 //            BY_VALUE.put(et.valueInt, et);
 //        }
 //    }
 //
-//    public static EnumTest valueOfName(Integer valueInt) {
+//    public static demo.EnumTest valueOfName(Integer valueInt) {
 //        return BY_VALUE.get(valueInt);
 //    }
 
