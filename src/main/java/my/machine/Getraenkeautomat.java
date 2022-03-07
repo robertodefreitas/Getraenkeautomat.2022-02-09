@@ -104,7 +104,7 @@ public class Getraenkeautomat {
             this.warenbestand.befuelleGetraenkefach(auswahl, getraenke);
         }
         catch (WarenbestandFehler fehler){
-                System.out.println("[ERROR] " + fehler.getMessage());
+                //System.out.println("[ERROR] " + fehler.getMessage());
         }
     }
 

@@ -129,8 +129,8 @@ public class GetraenkeautomatUnitTest {
     }
 
 
-    @Deprecated
-    //@Test
+    //@Deprecated
+    @Test
     public void befuelleGetraenkefachTest(){
         Getraenkewunsch getraenkewunsch = new Getraenkewunsch(1);
         List<Muenze> einzahlung = new ArrayList<>(Arrays.asList(
