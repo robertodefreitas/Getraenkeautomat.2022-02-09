@@ -187,6 +187,8 @@ public class GetraenkeautomatUnitTest {
         Assertions.assertEquals(1000, getraenkeautomat.summeAlleMuenzenCentsKasse());
 
         getraenkeautomat.entleereMuenzfaecher();
+        Assertions.assertEquals(0, getraenkeautomat.summeAlleMuenzenCentsKasse());
+
         GetraenkUndWechselgeld getraenkUndWechselgeld = getraenkeautomat.kaufen(getraenkewunsch,einzahlung);
 
         Assertions.assertEquals("ERROR Es ist nicht genug Münzen im Munzfach für Wechselgeld.", getraenkUndWechselgeld.getFehler());

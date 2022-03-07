@@ -14,11 +14,11 @@ public class Geldbestand {
 
     public Geldbestand(Integer maxMuenzenAnzahl) {
         this.muenzfaecher = new ArrayList<>(Arrays.asList(
-                new Muenzfach().erstellenMuenzfach(Muenztyp.ZEHN_CENT.name(), maxMuenzenAnzahl),
-                new Muenzfach().erstellenMuenzfach(Muenztyp.ZWANZIG_CENT.name(), maxMuenzenAnzahl),
-                new Muenzfach().erstellenMuenzfach(Muenztyp.FUENZIG_CENT.name(), maxMuenzenAnzahl),
-                new Muenzfach().erstellenMuenzfach(Muenztyp.EIN_EURO.name(), maxMuenzenAnzahl),
-                new Muenzfach().erstellenMuenzfach(Muenztyp.ZWEI_EURO.name(), maxMuenzenAnzahl)
+                Muenzfach.erstellenMuenzfach(Muenztyp.ZEHN_CENT, maxMuenzenAnzahl),
+                Muenzfach.erstellenMuenzfach(Muenztyp.ZWANZIG_CENT, maxMuenzenAnzahl),
+                Muenzfach.erstellenMuenzfach(Muenztyp.FUENZIG_CENT, maxMuenzenAnzahl),
+                Muenzfach.erstellenMuenzfach(Muenztyp.EIN_EURO, maxMuenzenAnzahl),
+                Muenzfach.erstellenMuenzfach(Muenztyp.ZWEI_EURO, maxMuenzenAnzahl)
         ));
     }
 
@@ -48,7 +48,7 @@ public class Geldbestand {
 
     public void hinzufuegenMunzeInMuenzfach(Muenze muenze){
         for (Muenzfach muenzfach : this.muenzfaecher){
-            if(muenzfach.getId().equals(muenze.getMuenze().name())){
+            if(muenzfach.getId().equals(muenze.getMuenze())){
                 Integer indexOfMuenzfach = muenzfaecher.indexOf(muenzfach);
                 muenzfach.getMuenzen().add(muenze);
                 this.muenzfaecher.set(indexOfMuenzfach,muenzfach);
@@ -65,7 +65,7 @@ public class Geldbestand {
 
     public void abziehenMunzeVonMuenzfach(Muenze muenze) {
         for (Muenzfach muenzfach : this.muenzfaecher){
-            if(muenzfach.getId().equals(muenze.getMuenze().name())){
+            if(muenzfach.getId().equals(muenze.getMuenze())){
                 Integer indexOfMuenzfach = muenzfaecher.indexOf(muenzfach);
 
                 //muenzfach.getMuenzen().remove(new Muenze(muenzfachId)); // so funktioniert nicht
@@ -188,7 +188,7 @@ public class Geldbestand {
 //        return centSumme;
 //    }
 
-    public void pruefenMunzfachLeer(String muenzfachId) throws GeldbestandFehler {
+    public void pruefenMunzfachLeer(Muenztyp muenzfachId) throws GeldbestandFehler {
         for (Muenzfach muenzfach : this.muenzfaecher){
             if(muenzfach.getId().equals(muenzfachId)){
                 if (muenzfach.isMuenzfachLeer()){
@@ -200,7 +200,7 @@ public class Geldbestand {
 
     public void pruefenMuenzenFuerWechselgeldAusreichend(List<Muenze> muenzen) throws GeldbestandFehler {
         for (Muenze muenze : muenzen){
-            pruefenMunzfachLeer(muenze.getMuenze().name());
+            pruefenMunzfachLeer(muenze.getMuenze());
         }
     }
 
