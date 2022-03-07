@@ -10,7 +10,7 @@ public class Geldbestand {
 
     /* constructor */
 
-    public Geldbestand(){}
+    //public Geldbestand(){}
 
     public Geldbestand(Integer maxMuenzenAnzahl) {
         this.muenzfaecher = new ArrayList<>(Arrays.asList(

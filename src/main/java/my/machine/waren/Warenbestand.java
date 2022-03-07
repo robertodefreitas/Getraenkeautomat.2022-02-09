@@ -12,7 +12,7 @@ public class Warenbestand {
 
 
     /* constructor */
-    public Warenbestand(){}
+    //public Warenbestand(){}
 
     public Warenbestand(List<Getraenkefach> getraenkefaecher) {
         this.getraenkefaecher = getraenkefaecher;
