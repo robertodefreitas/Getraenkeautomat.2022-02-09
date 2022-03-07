@@ -55,6 +55,12 @@ public class Muenzfach {
 
     /* methods */
 
+    /**
+     * folgende Konstruktur habe ich entfernt
+     * public Muenzfach(){}
+     * Der wurde im "public Geldbestand(Integer maxMuenzenAnzahl)" verwendet
+     * Dafür habe ich diese Methode erstellenMuenzfach als static eingestellt
+     */
     public static Muenzfach erstellenMuenzfach(Muenztyp id, Integer maxMuenzenAnzahl){
         return new Muenzfach(id, maxMuenzenAnzahl);
     }
