@@ -1,26 +1,78 @@
 @startuml
 'https://plantuml.com/sequence-diagram
+'nicht fertig, im Bearbeitung
 
 autonumber
 
-Start -> Getraenkeautomat: kaufen(auswahl, einzahlung)
+'=========================
 
-Getraenkeautomat -> Warenbetand :  pruefenGetraenkewunschVorhanden(auswahl)
+actor User
 
-Getraenkeautomat -> Getraenkeautomat : pruefenEinzahlungBetragAusreichend(auswahl,einzahlung)
+participant "Getraenkeautomat" as GA
+'participant "GetraenkUndWechselgeld" as GWG
 
-Getraenkeautomat -> Getraenkeautomat : pruefenMuenzenFuerWechselgeldAusreichend(auswahl,einzahlung)
+participant "Warenbestand" as WB
+participant "Getraenkefach" as GF
+participant "Getraenkewusch" as GW
 
-Getraenkeautomat -> Geldbestand :  befuelleMuenzfaecher(einzahlung)
+participant "Geldbestand" as GB
+participant "Muenzfach" as MF
+participant "Muenztyp" as MT
 
-Getraenkeautomat -> Getraenkeautomat : abziehenMuenzenVonMuenzfaecher(auswahl,einzahlung)
+'=========================
 
-Getraenkeautomat -> Warenbetand :  warenbestand.getraenkAusgeben(auswahl)
+User -> GA: kaufen(auswahl, einzahlung)
+activate GA #FFBBBB
 
-Getraenkeautomat <-- Warenbetand :  Getraenk
+GA -> WB :  pruefenGetraenkewunschVorhanden(auswahl)
+activate WB #FFBBBB
 
-Getraenkeautomat -> Getraenkeautomat: kaufenErfolgreichAbschliessen(getraenk,wechselgeldMunzen)
+WB -> GF :  waehlenGetraenkefach(getraenkewunsch)
+activate GF #FFBBBB
 
-Start <-- Getraenkeautomat: GetraenkUndWechselgeld
+
+GF -> GF :  getFachNummer()
+activate GF #DarkSalmon
+
+GF -> GW :  getFachNummer()
+activate GW #FFBBBB
+return fachNummers
+
+deactivate GF #DarkSalmon
+
+return getraenkefach
+'deactivate GF #FFBBBB
+
+
+WB -> GF :  isGetraenkefachLeer()
+activate GF #DarkSalmon
+
+WB <- GF :  FALSE
+WB <-- GF :  TRUE
+deactivate GF #DarkSalmon
+
+
+'WB <-- GF : WarenbestandFehler
+GA <-- WB : WarenbestandFehler
+deactivate WB #FFBBBB
+
+'=========================
+
+GA -> GA : pruefenEinzahlungBetragAusreichend(auswahl,einzahlung)
+
+GA -> GA : pruefenMuenzenFuerWechselgeldAusreichend(auswahl,einzahlung)
+
+GA -> GB :  befuelleMuenzfaecher(einzahlung)
+
+GA -> GA : abziehenMuenzenVonMuenzfaecher(auswahl,einzahlung)
+
+GA -> WB :  warenbestand.getraenkAusgeben(auswahl)
+
+GA <-- WB :  Getraenk
+
+GA -> GA : kaufenErfolgreichAbschliessen(getraenk,wechselgeldMunzen)
+
+User <-- GA : GetraenkUndWechselgeld
+deactivate GA #FFBBBB
 
 @enduml
