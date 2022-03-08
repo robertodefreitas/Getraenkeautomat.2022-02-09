@@ -3,9 +3,24 @@
 
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+Start -> Getraenkeautomat: kaufen(auswahl, einzahlung)
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+Getraenkeautomat -> Warenbetand :  pruefenGetraenkewunschVorhanden(auswahl)
+
+Getraenkeautomat -> Getraenkeautomat : pruefenEinzahlungBetragAusreichend(auswahl,einzahlung)
+
+Getraenkeautomat -> Getraenkeautomat : pruefenMuenzenFuerWechselgeldAusreichend(auswahl,einzahlung)
+
+Getraenkeautomat -> Geldbestand :  befuelleMuenzfaecher(einzahlung)
+
+Getraenkeautomat -> Getraenkeautomat : abziehenMuenzenVonMuenzfaecher(auswahl,einzahlung)
+
+Getraenkeautomat -> Warenbetand :  warenbestand.getraenkAusgeben(auswahl)
+
+Getraenkeautomat <-- Warenbetand :  Getraenk
+
+Getraenkeautomat -> Getraenkeautomat: kaufenErfolgreichAbschliessen(getraenk,wechselgeldMunzen)
+
+Start <-- Getraenkeautomat: GetraenkUndWechselgeld
+
 @enduml
