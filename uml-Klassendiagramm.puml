@@ -6,16 +6,19 @@ title
  <i>Domain Model</i>
 end title
 
-class Getraenkeautomat <root> {
++class Getraenkeautomat <root> {
 'beide werden im Klassendiagramm nicht geschrieben, weil die 1.. beziehung das schon zeigt
 'also, es ist klar dass die vorhanden sind
 'warenbestand
 'geldbestand
 '+GetraenkUndWechselgeld kaufen(Getraenkewunsch auswahl, Muenze... einzahlung)
 +kaufen()
-+kaufenErfolgreich()
++abziehenMuenzenVonMuenzfaecher()
++kaufenErfolgreichAbschliessen()
 +kaufenFehlerhaft()
-+wechselgeldBerechnenCents()
++pruefenEinzahlungBetragAusreichend()
++pruefenMuenzenFuerWechselgeldAusreichend()
++wechselgeldBerechnenMuenze()
 +befuelleGetraenkefach()
 +befuelleMuenzfach()
 +entleereGetraenkefaecher()
@@ -28,91 +31,89 @@ class Getraenkeautomat <root> {
 
 'WAREN
 
-class Warenbestand <waren> {
-'getraenkefaecher: List<Getraenkefach>
++class Warenbestand <waren> {
+'-getraenkefaecher: List<Getraenkefach>
 +neuesGetraenkefach()
 +waehlenGetraenkefach()
 +pruefenGetraenkewunschVorhanden()
 +pruefenEinzahlungBetragAusreichend()
 +bekommenGetraenkepreis()
-+getraenkKonsumieren()
++getraenkAusgeben()
 +befuelleGetraenkefach()
 +befuelleGetraenkefaecher()
 +summeAlleGetraenkeMitName()
 +summeAlleGetraenkeInGetraenkefach()
 }
 
-class Getraenkefach <waren> {
-fachNummer: Integer
-'getraenke: List<Getraenk>
-maxGetraenkeAnzhal: Integer
-preis: Integer
++class Getraenkefach <waren> {
+-fachNummer: Integer
+'-getraenke: List<Getraenk>
+-maxGetraenkeAnzhal: Integer
+-preis: Integer
 +getraenkKonsumieren()
 +isGetraenkefachLeer()
 +isGetraenkefachVoll()
 }
 
-class Getraenk <waren> {
-name: String
++class Getraenk <waren> {
+-name: String
 }
 
 
 'KASSE
 
-class Geldbestand <kasse> {
-'muenzfaecher: List<Muenzfach>
++class Geldbestand <kasse> {
+'-muenzfaecher: List<Muenzfach>
 +hinzufuegenMunzeInMuenzfach()
 +befuelleMuenzfaecher()
 +abziehenMunzeVonMuenzfach()
 +abziehenMuenzenVonMuenzfaecher()
 +entleereMuenzfaecher()
 +summeAlleMuenzenCents()
-'+umwandelnBetrag2Cents()
-'+umwandelnCents2Betrag()
 +umwandelnCents2Muenzen()
 +umwandelnMuenzen2Cents()
 +pruefenMunzfachLeer()
-+pruefenMuenzenFuerWechselgeld()
-+bekommenMuenztypVonCents()
++pruefenMuenzenFuerWechselgeldAusreichend()
 }
 
-class Muenzfach <kasse> {
-fachNummer: Integer
-'muenzen: List<Muenze>
-maxMuenzenAnzahl: Integer
++class Muenzfach <kasse> {
+-fachNummer: Muenztyp
+'-muenzen: List<Muenze>
+-maxMuenzenAnzahl: Integer
 +erstellenMuenzfach()
 +isMuenzfachLeer()
 +isMuenzfachVoll()
-+bekommenMuenztypVonCents()
 }
 
-class Muenze <kasse> {
-muenze: Muenztyp
-+bekommenCents()
-+bekommenMuenztypVonCents()
++class Muenze <kasse> {
+-muenze: Muenztyp
 }
 
 
 'OHNE_BEZIEHUNG
 
-class GetraenkUndWechselgeld <DTO> {
-getraenk: Getraenk
-wechselgeld: List<Muenze>
-fehler: String
++class GetraenkUndWechselgeld <DTO> {
+-getraenk: Getraenk
+-wechselgeld: List<Muenze>
+-fehler: String
 +kaufenErfolgreich()
 +kaufenFehlerhaft()
 }
 
-class Getraenkewunsch <DTO> {
-fachNummer: Integer
++class Getraenkewunsch <DTO> {
+-fachNummer: Integer
 }
 
-enum Muenztyp <kasse> {
-ZEHN_CENT
-ZWANZIG_CENT
-FUENZIG_CENT
-EIN_EURO
++enum Muenztyp <kasse> {
 ZWEI_EURO
+EIN_EURO
+FUENZIG_CENT
+ZWANZIG_CENT
+ZEHN_CENT
+-cent : Integer
++ {static} summeAlleMuenzenCents()
++ {static} umwandelnCents2Muenzen()
++ {static} umwandelnMuenzen2Cents()
 }
 
 
@@ -131,6 +132,7 @@ ZWEI_EURO
 '-right->
 '-left->
 '-up->
+'-[dotted]->
 Getraenkeautomat *-down-> "1" Warenbestand
 Warenbestand -down-> "1..n" Getraenkefach : ist sortiert in
 Getraenkefach -down-> "0..n" Getraenk : lagert
@@ -138,5 +140,7 @@ Getraenkefach -down-> "0..n" Getraenk : lagert
 Getraenkeautomat *-down-> "1" Geldbestand
 Geldbestand -down-> "5" Muenzfach : ist sortiert in
 Muenzfach -down-> "0..n" Muenze : lagert
+Muenze::muenze -[dotted]-> Muenztyp
+Muenzfach::fachNummer -[dotted]-> Muenztyp
 
 @enduml
