@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <bpmn:process id="ga-approve-loan" name="GA Loan Approval" isExecutable="true">
+    <bpmn:startEvent id="GAStartEvent_1" name="Loan Request Received" camunda:formKey="embedded:app:forms/ga-request-loan.html">
+      <bpmn:outgoing>SequenceFlow_0c4zr6d</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0fh904m</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0c4zr6d" sourceRef="GAStartEvent_1" targetRef="GAUserTask_john" />
+    <bpmn:userTask id="GAUserTask_john" name="GA Approve Loan john" camunda:formKey="embedded:app:forms/ga-approve-loan.html" camunda:assignee="john">
+      <bpmn:incoming>SequenceFlow_0c4zr6d</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1vbokmm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="GAEndEvent_1" name="GA Loan Request Approved">
+      <bpmn:incoming>Flow_1wssg9u</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1vbokmm" sourceRef="GAUserTask_john" targetRef="GAServiceTask_ProcessRequestDelegate" />
+    <bpmn:serviceTask id="GAServiceTask_ProcessRequestDelegate" name="GA Process Request" camunda:class="my.machine.camunda.ProcessRequestDelegateGA">
+      <bpmn:incoming>SequenceFlow_1vbokmm</bpmn:incoming>
+      <bpmn:incoming>Flow_03cpiou</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wssg9u</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="GAUserTask_mary" name="GA Approve Loan mary" camunda:formKey="embedded:app:forms/ga-approve-loan.html" camunda:assignee="mary">
+      <bpmn:incoming>Flow_0fh904m</bpmn:incoming>
+      <bpmn:outgoing>Flow_03cpiou</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_03cpiou" sourceRef="GAUserTask_mary" targetRef="GAServiceTask_ProcessRequestDelegate" />
+    <bpmn:sequenceFlow id="Flow_0fh904m" sourceRef="GAStartEvent_1" targetRef="GAUserTask_mary" />
+    <bpmn:sequenceFlow id="Flow_1wssg9u" sourceRef="GAServiceTask_ProcessRequestDelegate" targetRef="GAEndEvent_1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ga-approve-loan">
+      <bpmndi:BPMNEdge id="Flow_1wssg9u_di" bpmnElement="Flow_1wssg9u">
+        <di:waypoint x="554" y="120" />
+        <di:waypoint x="592" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fh904m_di" bpmnElement="Flow_0fh904m">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="244" y="120" />
+        <di:waypoint x="244" y="230" />
+        <di:waypoint x="278" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03cpiou_di" bpmnElement="Flow_03cpiou">
+        <di:waypoint x="378" y="230" />
+        <di:waypoint x="416" y="230" />
+        <di:waypoint x="416" y="120" />
+        <di:waypoint x="454" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1vbokmm_di" bpmnElement="SequenceFlow_1vbokmm">
+        <di:waypoint x="378" y="120" />
+        <di:waypoint x="454" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="451.5" y="110" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0c4zr6d_di" bpmnElement="SequenceFlow_0c4zr6d">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="278" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="198.5" y="110" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="GAStartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="157" y="138" width="69" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_11fud4o_di" bpmnElement="GAUserTask_john">
+        <dc:Bounds x="278" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0m5ho94_di" bpmnElement="GAServiceTask_ProcessRequestDelegate">
+        <dc:Bounds x="453.66700000000003" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0e8c2ol_di" bpmnElement="GAUserTask_mary">
+        <dc:Bounds x="278" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1i5bz86_di" bpmnElement="GAEndEvent_1">
+        <dc:Bounds x="592" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="567" y="138" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

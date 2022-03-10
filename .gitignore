@@ -1,4 +1,5 @@
 *.bat
+*.sh
 
 ### Maven ###
 target/
