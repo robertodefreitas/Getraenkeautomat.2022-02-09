@@ -1,0 +1,46 @@
+<h3>Getränkeautomat - Embedded Forms</h3>
+<form role="form"
+      name="resultKaufen">
+
+  <div class="row">
+
+    <div class="col-xs-6">
+      <h2>Getränkeausgabe</h2>
+
+      <!-- Getraenke Type -->
+      <div class="form-group">
+        <label for="getraenkId">Getränke</label>
+        <div class="controls">
+          <input id="getraenkId"
+                 name="getraenk"
+                 type="text"
+                 class="form-control"
+                 readonly
+                 cam-variable-type="String"
+                 cam-variable-name="getraenk"/>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-xs-6">
+      <h2>Wechselgeld</h2>
+
+      <!-- Münzen -->
+      <div class="form-group">
+        <label for="wechselgeldId">Wechselgeld (CENT)</label>
+        <div class="controls">
+          <input id="wechselgeldId"
+                 name="wechselgeld"
+                 type="number"
+                 class="form-control"
+                 readonly
+                 cam-variable-type="Integer"
+                 cam-variable-name="wechselgeld"/>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</form>
