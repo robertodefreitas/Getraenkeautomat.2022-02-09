@@ -5,15 +5,10 @@ import my.machine.dto.GetraenkUndWechselgeld;
 import my.machine.dto.Getraenkewunsch;
 import my.machine.kasse.Muenze;
 import my.machine.kasse.Muenztyp;
-import my.machine.waren.Getraenk;
-import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.camunda.bpm.engine.task.Task;
-import org.camunda.bpm.model.bpmn.instance.camunda.CamundaFormData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
