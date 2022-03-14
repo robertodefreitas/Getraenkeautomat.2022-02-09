@@ -25,8 +25,8 @@ public class KaufenAusfuehren implements JavaDelegate {
   public void execute(DelegateExecution execution) throws Exception {
     // https://forum.camunda.org/t/using-form-fields-enum-values-in-an-external-form/4001/4
     //CamundaFormData formData = execution.getBpmnModelElementInstance().getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
-    String getraenk = execution.getVariable("getraenk").toString();
-    Getraenkewunsch getraenkewunsch;
+    Integer getraenkNummer = execution.getVariable("getraenkNummer").hashCode();
+    Getraenkewunsch getraenkewunsch = new Getraenkewunsch(getraenkNummer);
     List<Muenze> einzahlung = new ArrayList<>();
 
     for (Muenztyp muenzetyp: Muenztyp.values()) {
@@ -37,23 +37,24 @@ public class KaufenAusfuehren implements JavaDelegate {
         }
     }
 
-    switch(getraenk){
-      case "wasser":
-        getraenkewunsch = new Getraenkewunsch(1);
-        LOGGER.info("Gewaehltes Getraenk: " + getraenk);
-        break;
-      case "cola":
-        getraenkewunsch = new Getraenkewunsch(2);
-        LOGGER.info("Gewaehltes Getraenk: " + getraenk);
-        break;
-      default:
-        getraenkewunsch = new Getraenkewunsch(1);
-        LOGGER.info("Gewaehltes Getraenk: (default) " + getraenk);
-        break;
-    }
+//    switch(getraenk){
+//      case "wasser":
+//        getraenkewunsch = new Getraenkewunsch(1);
+//        LOGGER.info("Gewaehltes Getraenk: " + getraenk);
+//        break;
+//      case "cola":
+//        getraenkewunsch = new Getraenkewunsch(2);
+//        LOGGER.info("Gewaehltes Getraenk: " + getraenk);
+//        break;
+//      default:
+//        getraenkewunsch = new Getraenkewunsch(1);
+//        LOGGER.info("Gewaehltes Getraenk: (default) " + getraenk);
+//        break;
+//    }
 
     GetraenkUndWechselgeld getraenkUndWechselgeld = ga.kaufen(getraenkewunsch,einzahlung);
 
+    execution.setVariable("getraenk", getraenkUndWechselgeld.getGetraenk().getName());
     execution.setVariable("wechselgeld", Muenztyp.umwandelnMuenzen2Cents(getraenkUndWechselgeld.getWechselgeld()));
 
   }

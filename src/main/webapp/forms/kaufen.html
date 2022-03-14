@@ -16,6 +16,24 @@
                   required
                   class="form-control"
                   name="getraenk"
+                  cam-variable-name="getraenkNummer"
+                  cam-variable-type="Integer">
+            <option value="" disabled selected>Getränk wählen</option>
+            <option value="1">Wasser</option>
+            <option value="2">Cola</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- MIT STRING
+      <div class="form-group">
+        <label for="selectGetraenkewunsch">Getränkewunsch</label>
+        <div class="controls">
+          <! -- select box -- >
+          <select id="selectGetraenkewunsch"
+                  required
+                  class="form-control"
+                  name="getraenk"
                   cam-variable-name="getraenk"
                   cam-variable-type="String">
             <option value="" disabled selected>Getränk wählen</option>
@@ -24,6 +42,7 @@
           </select>
         </div>
       </div>
+      -->
 
       <!-- RATIO Wird nicht unterstützt! -->
       <!-- https://github.com/camunda/camunda-bpm-sdk-js/blob/master/test/karma/forms/form-simple.html -->
