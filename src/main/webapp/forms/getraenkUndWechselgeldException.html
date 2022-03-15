@@ -1,6 +1,6 @@
 <h3>Getränkeautomat - Embedded Forms</h3>
 <form role="form"
-      name="resultKaufen">
+      name="resultKaufenException">
 
   <div class="row">
 
@@ -37,6 +37,25 @@
                  readonly
                  cam-variable-type="Integer"
                  cam-variable-name="wechselgeld"/>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-sm-12">
+      <h2>Fehler</h2>
+
+      <!-- Fehler -->
+      <div class="form-group">
+        <label for="wechselgeldId">Keine Getränkeausgabe wenn ein Fehler vorhanden ist</label>
+        <div class="controls">
+          <input id="fehlerId"
+                 name="fehler"
+                 type="text"
+                 class="form-control"
+                 readonly
+                 cam-variable-type="String"
+                 cam-variable-name="fehler"/>
         </div>
       </div>
 

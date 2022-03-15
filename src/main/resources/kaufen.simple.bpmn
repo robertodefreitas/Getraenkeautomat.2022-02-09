@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
-  <bpmn:process id="ga-kaufen-id" name="Task GA Kaufen" isExecutable="true">
+  <bpmn:process id="ga-kaufen-id-simple" name="Task GA Kaufen Simple" isExecutable="true">
     <bpmn:startEvent id="StartEventKaufen1" name="Start Event Kaufen" camunda:formKey="embedded:app:forms/kaufen.html">
       <bpmn:outgoing>SequenceFlow_0c4zr6d</bpmn:outgoing>
       <bpmn:outgoing>Flow_0fh904m</bpmn:outgoing>
@@ -14,7 +14,7 @@
     <bpmn:sequenceFlow id="Flow_0fh904m" sourceRef="StartEventKaufen1" targetRef="ServiceTask_KaufenAusfuehren" />
     <bpmn:sequenceFlow id="Flow_1wssg9u" sourceRef="ServiceTask_KaufenAusfuehren" targetRef="UserTask1_john" />
     <bpmn:sequenceFlow id="Flow_1ar2cym" sourceRef="UserTask1_john" targetRef="EndEventKaufen1" />
-    <bpmn:userTask id="UserTask1_john" name="User Task Getränk und Wechselgeld" camunda:formKey="embedded:app:forms/getraenkUndWechselgeldException.html" camunda:assignee="john">
+    <bpmn:userTask id="UserTask1_john" name="User Task Getränk und Wechselgeld" camunda:formKey="embedded:app:forms/getraenkUndWechselgeld.html" camunda:assignee="john">
       <bpmn:incoming>Flow_1wssg9u</bpmn:incoming>
       <bpmn:outgoing>Flow_1ar2cym</bpmn:outgoing>
     </bpmn:userTask>
@@ -23,8 +23,8 @@
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_0fef17r" />
     </bpmn:endEvent>
   </bpmn:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ga-kaufen-id">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_2">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ga-kaufen-id-simple">
       <bpmndi:BPMNEdge id="Flow_1ar2cym_di" bpmnElement="Flow_1ar2cym">
         <di:waypoint x="490" y="120" />
         <di:waypoint x="522" y="120" />

@@ -49,9 +49,16 @@ public class KaufenAusfuehren implements JavaDelegate {
 
     GetraenkUndWechselgeld getraenkUndWechselgeld = ga.kaufen(getraenkewunsch,einzahlung);
 
-    execution.setVariable("getraenk", getraenkUndWechselgeld.getGetraenk().getName());
-    execution.setVariable("wechselgeld", Muenztyp.umwandelnMuenzen2Cents(getraenkUndWechselgeld.getWechselgeld()));
+    if (getraenkUndWechselgeld.getGetraenk() == null){
+        execution.setVariable("getraenk", "keine Getränkeausgabe");
+    } else {
+        execution.setVariable("getraenk", getraenkUndWechselgeld.getGetraenk().getName());
+    }
 
+    execution.setVariable("wechselgeld", Muenztyp.umwandelnMuenzen2Cents(getraenkUndWechselgeld.getWechselgeld()));
+    execution.setVariable("fehler", getraenkUndWechselgeld.getFehler());
+
+    //System.exit(0);
   }
 
 //  private TaskService taskService;

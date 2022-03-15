@@ -1,0 +1,176 @@
+<h3>Getränkeautomat - Embedded Forms</h3>
+<form role="form"
+      name="requestKaufen">
+
+  <div class="row">
+
+    <div class="col-xs-6">
+      <h2>Getränkeauswahl</h2>
+
+      <!-- Getraenke Type -->
+      <div class="form-group">
+        <label for="selectGetraenkewunsch">Getränkewunsch</label>
+        <div class="controls">
+          <! -- select box -- >
+          <select id="selectGetraenkewunsch"
+                  required
+                  class="form-control"
+                  name="getraenk"
+                  cam-variable-name="getraenkNummer"
+                  cam-variable-type="Integer">
+            <option value="" disabled selected>Getränk wählen</option>
+            <option value="1">Wasser (1.2 €)</option>
+            <option value="2">Cola (1.23 €)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- MIT STRING
+      <div class="form-group">
+        <label for="selectGetraenkewunsch">Getränkewunsch</label>
+        <div class="controls">
+          <! -- select box -- >
+          <select id="selectGetraenkewunsch"
+                  required
+                  class="form-control"
+                  name="getraenk"
+                  cam-variable-name="getraenk"
+                  cam-variable-type="String">
+            <option value="" disabled selected>Getränk wählen</option>
+            <option value="cola">Cola</option>
+            <option value="wasser">Wasser</option>
+          </select>
+        </div>
+      </div>
+      -->
+
+      <!-- RATIO Wird nicht unterstützt! -->
+      <!-- https://github.com/camunda/camunda-bpm-sdk-js/blob/master/test/karma/forms/form-simple.html -->
+      <!--
+      <div class="form-group">
+        <fieldset>
+          <legend>Getränk wählen</legend>
+
+          <input type="radio"
+                 id="idCola"
+                 name="getraenk"
+                 value="cola"
+                 cam-variable-name="getraenk"
+                 cam-variable-type="String">
+          <label for="idCola">Cola</label><br/>
+
+          <input type="radio"
+                 id="idWasser"
+                 name="getraenk"
+                 value="wasser"
+                 cam-variable-name="getraenk"
+                 cam-variable-type="String">
+          <label for="idWasser">Wasser</label><br/>
+        </fieldset>
+      </div>
+      -->
+
+    </div>
+
+
+    <div class="col-xs-6">
+      <h2>Einzahlung</h2>
+      <h4>Anzahl von Münzen eingeben</h4>
+      <!-- Münzen -->
+      <div class="form-group">
+        <label for="inputMuenze2Euro">2 EURO</label>
+        <div class="controls">
+          <!-- ENGINE-REST-HTTP500 java.lang.NullPointerException
+          Wenn die werte nicht gefühlt ist -->
+          <!--
+          <input id="inputMuenze2Euro"
+                 name="muenze2Euro"
+                 type="number"
+                 class="form-control"
+                 min="0"
+                 placeholder="Anzahl von Münzen"
+                 cam-variable-type="Integer"
+                 cam-variable-name="ZWEI_EURO"/>
+          -->
+          <input id="inputMuenze2Euro"
+                 name="muenze2Euro"
+                 type="number"
+                 class="form-control"
+                 min="0"
+                 placeholder="Anzahl von Münzen"
+                 required
+                 value="0"
+                 cam-variable-type="Integer"
+                 cam-variable-name="ZWEI_EURO"/>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputMuenze1Euro">1 EURO</label>
+        <div class="controls">
+          <input id="inputMuenze1Euro"
+                 name="muenze1Euro"
+                 type="number"
+                 class="form-control"
+                 min="0"
+                 placeholder="Anzahl von Münzen"
+                 required
+                 value="0"
+                 cam-variable-type="Integer"
+                 cam-variable-name="EIN_EURO"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputMuenze50Cent">50 CENT</label>
+        <div class="controls">
+          <input id="inputMuenze50Cent"
+                 name="muenze50Cent"
+                 type="number"
+                 class="form-control"
+                 min="0"
+                 placeholder="Anzahl von Münzen"
+                 required
+                 value="0"
+                 cam-variable-type="Integer"
+                 cam-variable-name="FUENZIG_CENT"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputMuenze20Cent">20 CENT</label>
+        <div class="controls">
+          <input id="inputMuenze20Cent"
+                 name="muenze20Cent"
+                 type="number"
+                 class="form-control"
+                 min="0"
+                 placeholder="Anzahl von Münzen"
+                 required
+                 value="0"
+                 cam-variable-type="Integer"
+                 cam-variable-name="ZWANZIG_CENT"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputMuenze10Cent">10 CENT</label>
+        <div class="controls">
+          <input id="inputMuenze10Cent"
+                 name="muenze10Cent"
+                 type="number"
+                 class="form-control"
+                 min="0"
+                 placeholder="Anzahl von Münzen"
+                 required
+                 value="0"
+                 cam-variable-type="Integer"
+                 cam-variable-name="ZEHN_CENT"/>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</form>
