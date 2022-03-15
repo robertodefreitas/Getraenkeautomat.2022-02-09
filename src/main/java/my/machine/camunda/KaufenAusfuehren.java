@@ -56,6 +56,8 @@ public class KaufenAusfuehren implements JavaDelegate {
     }
 
     execution.setVariable("wechselgeld", Muenztyp.umwandelnMuenzen2Cents(getraenkUndWechselgeld.getWechselgeld()));
+
+    // ERROR Es wurde nicht genug Geld eingezahlt.
     execution.setVariable("fehler", getraenkUndWechselgeld.getFehler());
 
     //System.exit(0);
