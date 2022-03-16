@@ -16,7 +16,7 @@
       <bpmn:incoming>Flow_1p47uoe</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_0fef17r" />
     </bpmn:endEvent>
-    <bpmn:exclusiveGateway id="GatewayKaufen1" name="Gateway">
+    <bpmn:exclusiveGateway id="GatewayKaufen1" name="Gateway" default="Flow_outGatewayNoOption">
       <bpmn:incoming>Flow_outProcessRequest_inGateway</bpmn:incoming>
       <bpmn:outgoing>Flow_outGatewayRight</bpmn:outgoing>
       <bpmn:outgoing>Flow_outGatewayWrong</bpmn:outgoing>
@@ -102,6 +102,12 @@
           <dc:Bounds x="198.5" y="110" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventKaufen1">
+        <dc:Bounds x="227" y="92" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="217" y="54.5" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_198pxez_di" bpmnElement="UserTask1_john">
         <dc:Bounds x="540" y="70" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -123,12 +129,6 @@
       <bpmndi:BPMNShape id="Activity_0ixpjeb_di" bpmnElement="UserTask3_errorUser">
         <dc:Bounds x="540" y="180" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventKaufen1">
-        <dc:Bounds x="227" y="92" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="217" y="54.5" width="55" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1egggix_di" bpmnElement="SubProcess_Kaufen1" isExpanded="true">
         <dc:Bounds x="140" y="150" width="210" height="140" />
       </bpmndi:BPMNShape>
@@ -136,11 +136,11 @@
         <di:waypoint x="198" y="230" />
         <di:waypoint x="230" y="230" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_0m5ho94_di" bpmnElement="ServiceTask_KaufenAusfuehren">
-        <dc:Bounds x="230" y="190" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1901pes_di" bpmnElement="Event_1901pes">
         <dc:Bounds x="162" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0m5ho94_di" bpmnElement="ServiceTask_KaufenAusfuehren">
+        <dc:Bounds x="230" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
