@@ -18,6 +18,17 @@ public class KaufenAusfuehren implements JavaDelegate {
   Getraenkeautomat ga = GA.starten();
 
   public void execute(DelegateExecution execution) throws Exception {
+    LOGGER.info("### DelegateExecution started! ###################################################");
+    LOGGER.info(
+          "getProcessInstanceId:" + execution.getProcessInstanceId() +
+                  " getProcessBusinessKey:" + execution.getProcessBusinessKey() +
+                  " getProcessDefinitionId:" + execution.getProcessDefinitionId() +
+                  " getParentId:" + execution.getParentId() +
+                  " getCurrentActivityId:" + execution.getCurrentActivityId() +
+                  " getActivityInstanceId:" + execution.getActivityInstanceId() +
+                  " getParentActivityInstanceId:" + execution.getParentActivityInstanceId() +
+                  " getCurrentTransitionId:" + execution.getCurrentTransitionId()
+    );
     // https://forum.camunda.org/t/using-form-fields-enum-values-in-an-external-form/4001/4
     //CamundaFormData formData = execution.getBpmnModelElementInstance().getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
     Integer getraenkNummer = execution.getVariable("getraenkNummer").hashCode();
@@ -32,20 +43,20 @@ public class KaufenAusfuehren implements JavaDelegate {
         }
     }
 
-//    switch(getraenk){
-//      case "wasser":
-//        getraenkewunsch = new Getraenkewunsch(1);
-//        LOGGER.info("Gewaehltes Getraenk: " + getraenk);
-//        break;
-//      case "cola":
-//        getraenkewunsch = new Getraenkewunsch(2);
-//        LOGGER.info("Gewaehltes Getraenk: " + getraenk);
-//        break;
-//      default:
-//        getraenkewunsch = new Getraenkewunsch(1);
-//        LOGGER.info("Gewaehltes Getraenk: (default) " + getraenk);
-//        break;
-//    }
+    //    switch(getraenk){
+    //      case "wasser":
+    //        getraenkewunsch = new Getraenkewunsch(1);
+    //        LOGGER.info("Gewaehltes Getraenk: " + getraenk);
+    //        break;
+    //      case "cola":
+    //        getraenkewunsch = new Getraenkewunsch(2);
+    //        LOGGER.info("Gewaehltes Getraenk: " + getraenk);
+    //        break;
+    //      default:
+    //        getraenkewunsch = new Getraenkewunsch(1);
+    //        LOGGER.info("Gewaehltes Getraenk: (default) " + getraenk);
+    //        break;
+    //    }
 
     GetraenkUndWechselgeld getraenkUndWechselgeld = ga.kaufen(getraenkewunsch,einzahlung);
 
@@ -59,6 +70,9 @@ public class KaufenAusfuehren implements JavaDelegate {
 
     // ERROR Es wurde nicht genug Geld eingezahlt.
     execution.setVariable("fehler", getraenkUndWechselgeld.getFehler());
+
+    LOGGER.info("### DelegateExecution finished! ##################################################");
+    LOGGER.info("---");
 
     //System.exit(0);
   }
