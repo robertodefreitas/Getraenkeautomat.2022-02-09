@@ -13,7 +13,7 @@
       <bpmn:incoming>Flow_1wssg9u</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1vbokmm" sourceRef="UserTask_john" targetRef="ServiceTask_ProcessRequestDelegate" />
-    <bpmn:serviceTask id="ServiceTask_ProcessRequestDelegate" name="Process Request" camunda:class="org.camunda.bpm.getstarted.loanapproval.ProcessRequestDelegate">
+    <bpmn:serviceTask id="ServiceTask_ProcessRequestDelegate" name="Process Request" camunda:class="org.camunda.bpm.getstarted.my.machine.org.camunda.bpm.getstarted.loanapproval.ProcessRequestDelegate">
       <bpmn:incoming>SequenceFlow_1vbokmm</bpmn:incoming>
       <bpmn:outgoing>Flow_1wssg9u</bpmn:outgoing>
     </bpmn:serviceTask>

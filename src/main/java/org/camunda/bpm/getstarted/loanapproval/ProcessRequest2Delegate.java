@@ -17,23 +17,23 @@ public class ProcessRequest2Delegate implements JavaDelegate {
 
         /**
          * ### mary
-         * 10-Mar-2022 13:07:07.255 INFORMATION [http-nio-8199-exec-6] org.camunda.bpm.getstarted.loanapproval.ProcessRequestDelegate.execute
+         * 10-Mar-2022 13:07:07.255 INFORMATION [http-nio-8199-exec-6] org.camunda.bpm.getstarted.my.machine.org.camunda.bpm.getstarted.loanapproval.ProcessRequestDelegate.execute
          * Processing request by 'CID-20220310-1306'...
          *
-         * 10-Mar-2022 13:07:07.259 INFORMATION [http-nio-8199-exec-6] org.camunda.bpm.getstarted.loanapproval.ProcessRequest2Delegate.execute
+         * 10-Mar-2022 13:07:07.259 INFORMATION [http-nio-8199-exec-6] org.camunda.bpm.getstarted.my.machine.org.camunda.bpm.getstarted.loanapproval.ProcessRequest2Delegate.execute
          * Processing (2) request by 'CID-20220310-1306' | getBpmnModelInstance: BPMN Model | getActivityInstanceId: 9b34d141-a06a-11ec-83b0-62f262e7f31a | getCurrentActivityId: ServiceTask_ProcessRequest2Delegate
          *
-         * 10-Mar-2022 13:07:07.259 INFORMATION [http-nio-8199-exec-6] org.camunda.bpm.getstarted.loanapproval.ProcessRequest2Delegate.execute
+         * 10-Mar-2022 13:07:07.259 INFORMATION [http-nio-8199-exec-6] org.camunda.bpm.getstarted.my.machine.org.camunda.bpm.getstarted.loanapproval.ProcessRequest2Delegate.execute
          * Processing (2) selectExampleRequest: Option_2 | selectExampleApprove: Option_3
          *
          * ### john
-         * 10-Mar-2022 13:08:01.241 INFORMATION [http-nio-8199-exec-9] org.camunda.bpm.getstarted.loanapproval.ProcessRequestDelegate.execute
+         * 10-Mar-2022 13:08:01.241 INFORMATION [http-nio-8199-exec-9] org.camunda.bpm.getstarted.my.machine.org.camunda.bpm.getstarted.loanapproval.ProcessRequestDelegate.execute
          * Processing request by 'CID-20220310-1306'...
          *
-         * 10-Mar-2022 13:08:01.243 INFORMATION [http-nio-8199-exec-9] org.camunda.bpm.getstarted.loanapproval.ProcessRequest2Delegate.execute
+         * 10-Mar-2022 13:08:01.243 INFORMATION [http-nio-8199-exec-9] org.camunda.bpm.getstarted.my.machine.org.camunda.bpm.getstarted.loanapproval.ProcessRequest2Delegate.execute
          * Processing (2) request by 'CID-20220310-1306' | getBpmnModelInstance: BPMN Model | getActivityInstanceId: bb629479-a06a-11ec-83b0-62f262e7f31a | getCurrentActivityId: ServiceTask_ProcessRequest2Delegate
          *
-         * 10-Mar-2022 13:08:01.244 INFORMATION [http-nio-8199-exec-9] org.camunda.bpm.getstarted.loanapproval.ProcessRequest2Delegate.execute
+         * 10-Mar-2022 13:08:01.244 INFORMATION [http-nio-8199-exec-9] org.camunda.bpm.getstarted.my.machine.org.camunda.bpm.getstarted.loanapproval.ProcessRequest2Delegate.execute
          * Processing (2) selectExampleRequest: Option_2 | selectExampleApprove: Option_4
          */
         LOGGER.info(

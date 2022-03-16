@@ -7,21 +7,65 @@
     <groupId>my.machine</groupId>
     <artifactId>Getraenkeautomat</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>GA</name>
-    <description>Getränkeautomat </description>
+    <description>Getränkeautomat</description>
+
+
+    <!--
+        <properties>
+            <java.version>17</java.version>
+            <maven.compiler.source>17</maven.compiler.source>
+            <maven.compiler.target>17</maven.compiler.target>
+
+            <slf4j.version>2.0.0-alpha6</slf4j.version>
+            <junit-jupiter.version>5.8.2</junit-jupiter.version>
+            <mockito-junit-jupiter.version>4.3.1</mockito-junit-jupiter.version>
+        </properties>
+    -->
 
     <properties>
-        <java.version>17</java.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <camunda.version>7.16.0</camunda.version>
+        <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
+        <maven-war-plugin.version>2.3</maven-war-plugin.version>
 
         <slf4j.version>2.0.0-alpha6</slf4j.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <mockito-junit-jupiter.version>4.3.1</mockito-junit-jupiter.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-bom</artifactId>
+                <version>${camunda.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 
     <dependencies>
+        <!-- CAMUNDA -->
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- LOG -->
         <!--
             private static final Logger logger = LoggerFactory.getLogger(Getraenkeautomat.class);
@@ -71,12 +115,6 @@
             <version>${mockito-junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
 
 
         <!-- jUnit4 -->
@@ -87,6 +125,20 @@
             <scope>test</scope>
         </dependency>
         -->
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
