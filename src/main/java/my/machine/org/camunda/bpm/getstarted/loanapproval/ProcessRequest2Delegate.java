@@ -1,4 +1,4 @@
-package org.camunda.bpm.getstarted.loanapproval;
+package my.machine.org.camunda.bpm.getstarted.loanapproval;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.DelegateTask;
