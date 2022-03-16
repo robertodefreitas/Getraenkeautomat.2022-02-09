@@ -2,17 +2,10 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <bpmn:process id="ga-kaufen-id-exception" name="Task GA Kaufen Exception" isExecutable="true">
     <bpmn:startEvent id="StartEventKaufen1" name="Start Event Kaufen" camunda:formKey="embedded:app:forms/kaufen.html">
-      <bpmn:outgoing>SequenceFlow_0c4zr6d</bpmn:outgoing>
       <bpmn:outgoing>Flow_0fh904m</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0c4zr6d" sourceRef="StartEventKaufen1" targetRef="ServiceTask_KaufenAusfuehren" />
-    <bpmn:serviceTask id="ServiceTask_KaufenAusfuehren" name="Process Request Kaufen Ausfuehren" camunda:class="my.machine.camunda.KaufenAusfuehren">
-      <bpmn:incoming>Flow_0fh904m</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0c4zr6d</bpmn:incoming>
-      <bpmn:outgoing>Flow_1wssg9u</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0fh904m" sourceRef="StartEventKaufen1" targetRef="ServiceTask_KaufenAusfuehren" />
-    <bpmn:sequenceFlow id="Flow_1wssg9u" sourceRef="ServiceTask_KaufenAusfuehren" targetRef="UserTask1_john" />
+    <bpmn:sequenceFlow id="Flow_0fh904m" sourceRef="StartEventKaufen1" targetRef="SubProcess_Kaufen1" />
+    <bpmn:sequenceFlow id="Flow_1wssg9u" sourceRef="SubProcess_Kaufen1" targetRef="UserTask1_john" />
     <bpmn:sequenceFlow id="Flow_1ar2cym" sourceRef="UserTask1_john" targetRef="EndEventKaufen1" />
     <bpmn:userTask id="UserTask1_john" name="User Task Getränk und Wechselgeld" camunda:formKey="embedded:app:forms/getraenkUndWechselgeldException.html" camunda:assignee="john">
       <bpmn:incoming>Flow_1wssg9u</bpmn:incoming>
@@ -22,45 +15,59 @@
       <bpmn:incoming>Flow_1ar2cym</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_0fef17r" />
     </bpmn:endEvent>
+    <bpmn:subProcess id="SubProcess_Kaufen1" name="SubProcess Kaufen">
+      <bpmn:incoming>Flow_0fh904m</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wssg9u</bpmn:outgoing>
+      <bpmn:startEvent id="Event_0yx13aj">
+        <bpmn:outgoing>Flow_0nk4dsh</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:serviceTask id="ServiceTask_KaufenAusfuehren" name="Process Request Kaufen Ausfuehren" camunda:class="my.machine.camunda.KaufenAusfuehren">
+        <bpmn:incoming>Flow_0nk4dsh</bpmn:incoming>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_0nk4dsh" sourceRef="Event_0yx13aj" targetRef="ServiceTask_KaufenAusfuehren" />
+    </bpmn:subProcess>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_3">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ga-kaufen-id-exception">
       <bpmndi:BPMNEdge id="Flow_1ar2cym_di" bpmnElement="Flow_1ar2cym">
-        <di:waypoint x="490" y="120" />
-        <di:waypoint x="522" y="120" />
+        <di:waypoint x="416" y="140" />
+        <di:waypoint x="472" y="140" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1wssg9u_di" bpmnElement="Flow_1wssg9u">
-        <di:waypoint x="350" y="120" />
-        <di:waypoint x="390" y="120" />
+        <di:waypoint x="366" y="230" />
+        <di:waypoint x="366" y="180" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0fh904m_di" bpmnElement="Flow_0fh904m">
-        <di:waypoint x="209" y="120" />
-        <di:waypoint x="250" y="120" />
+        <di:waypoint x="229" y="158" />
+        <di:waypoint x="229" y="230" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0c4zr6d_di" bpmnElement="SequenceFlow_0c4zr6d">
-        <di:waypoint x="209" y="120" />
-        <di:waypoint x="250" y="120" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="198.5" y="110" width="90" height="20" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventKaufen1">
-        <dc:Bounds x="173" y="102" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="166" y="138" width="55" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_0m5ho94_di" bpmnElement="ServiceTask_KaufenAusfuehren">
-        <dc:Bounds x="250" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_198pxez_di" bpmnElement="UserTask1_john">
-        <dc:Bounds x="390" y="80" width="100" height="80" />
+        <dc:Bounds x="316" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventKaufen1">
+        <dc:Bounds x="211" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="201" y="84.5" width="55" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_005kski_di" bpmnElement="EndEventKaufen1">
-        <dc:Bounds x="522" y="102" width="36" height="36" />
+        <dc:Bounds x="472" y="122" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="497" y="138" width="89" height="14" />
+          <dc:Bounds x="447" y="158" width="89" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rr5xxu_di" bpmnElement="SubProcess_Kaufen1" isExpanded="true">
+        <dc:Bounds x="210" y="230" width="210" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0nk4dsh_di" bpmnElement="Flow_0nk4dsh">
+        <di:waypoint x="268" y="310" />
+        <di:waypoint x="300" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0m5ho94_di" bpmnElement="ServiceTask_KaufenAusfuehren">
+        <dc:Bounds x="300" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0yx13aj_di" bpmnElement="Event_0yx13aj">
+        <dc:Bounds x="232" y="292" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

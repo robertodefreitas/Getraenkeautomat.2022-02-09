@@ -3,64 +3,144 @@
   <bpmn:process id="ga-kaufen-id" name="Task GA Kaufen" isExecutable="true">
     <bpmn:startEvent id="StartEventKaufen1" name="Start Event Kaufen" camunda:formKey="embedded:app:forms/kaufen.html">
       <bpmn:outgoing>SequenceFlow_0c4zr6d</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0fh904m</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0c4zr6d" sourceRef="StartEventKaufen1" targetRef="ServiceTask_KaufenAusfuehren" />
-    <bpmn:serviceTask id="ServiceTask_KaufenAusfuehren" name="Process Request Kaufen Ausfuehren" camunda:class="my.machine.camunda.KaufenAusfuehren">
-      <bpmn:incoming>Flow_0fh904m</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0c4zr6d</bpmn:incoming>
-      <bpmn:outgoing>Flow_1wssg9u</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0fh904m" sourceRef="StartEventKaufen1" targetRef="ServiceTask_KaufenAusfuehren" />
-    <bpmn:sequenceFlow id="Flow_1wssg9u" sourceRef="ServiceTask_KaufenAusfuehren" targetRef="UserTask1_john" />
+    <bpmn:sequenceFlow id="SequenceFlow_0c4zr6d" sourceRef="StartEventKaufen1" targetRef="SubProcess_Kaufen1" />
     <bpmn:sequenceFlow id="Flow_1ar2cym" sourceRef="UserTask1_john" targetRef="EndEventKaufen1" />
-    <bpmn:userTask id="UserTask1_john" name="User Task Getränk und Wechselgeld" camunda:formKey="embedded:app:forms/getraenkUndWechselgeldException.html" camunda:assignee="john">
-      <bpmn:incoming>Flow_1wssg9u</bpmn:incoming>
+    <bpmn:userTask id="UserTask1_john" name="User Task Getränk und Wechselgeld" camunda:formKey="embedded:app:forms/getraenkUndWechselgeld.html" camunda:assignee="john">
+      <bpmn:incoming>Flow_outGatewayRight</bpmn:incoming>
       <bpmn:outgoing>Flow_1ar2cym</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:endEvent id="EndEventKaufen1" name="End Event Kaufen">
       <bpmn:incoming>Flow_1ar2cym</bpmn:incoming>
+      <bpmn:incoming>Flow_1kisdm4</bpmn:incoming>
+      <bpmn:incoming>Flow_1p47uoe</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_0fef17r" />
     </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="GatewayKaufen1" name="Gateway">
+      <bpmn:incoming>Flow_outProcessRequest_inGateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_outGatewayRight</bpmn:outgoing>
+      <bpmn:outgoing>Flow_outGatewayWrong</bpmn:outgoing>
+      <bpmn:outgoing>Flow_outGatewayNoOption</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_outProcessRequest_inGateway" sourceRef="SubProcess_Kaufen1" targetRef="GatewayKaufen1" />
+    <bpmn:sequenceFlow id="Flow_outGatewayRight" name="RIGHT" sourceRef="GatewayKaufen1" targetRef="UserTask1_john">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${ fehler == null || fehler == ''}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="UserTask2Exception_john" name="User Task Getränk und Wechselgeld Exception" camunda:formKey="embedded:app:forms/getraenkUndWechselgeldException.html" camunda:assignee="john">
+      <bpmn:incoming>Flow_outGatewayWrong</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kisdm4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_outGatewayWrong" name="WRONG" sourceRef="GatewayKaufen1" targetRef="UserTask2Exception_john">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="groovy">fehler.take(5) == 'ERROR'</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1kisdm4" sourceRef="UserTask2Exception_john" targetRef="EndEventKaufen1" />
+    <bpmn:sequenceFlow id="Flow_outGatewayNoOption" name="NO_OPTION" sourceRef="GatewayKaufen1" targetRef="UserTask3_errorUser" />
+    <bpmn:userTask id="UserTask3_errorUser" name="User Task Getränk und Wechselgeld noOption" camunda:formKey="embedded:app:forms/getraenkUndWechselgeldException.html" camunda:assignee="errorUser">
+      <bpmn:incoming>Flow_outGatewayNoOption</bpmn:incoming>
+      <bpmn:outgoing>Flow_1p47uoe</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1p47uoe" sourceRef="UserTask3_errorUser" targetRef="EndEventKaufen1" />
+    <bpmn:subProcess id="SubProcess_Kaufen1" name="SubProcess">
+      <bpmn:incoming>SequenceFlow_0c4zr6d</bpmn:incoming>
+      <bpmn:outgoing>Flow_outProcessRequest_inGateway</bpmn:outgoing>
+      <bpmn:startEvent id="Event_1901pes">
+        <bpmn:outgoing>Flow_0dluy9d</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:serviceTask id="ServiceTask_KaufenAusfuehren" name="Process Request Kaufen Ausfuehren" camunda:class="my.machine.camunda.KaufenAusfuehren">
+        <bpmn:incoming>Flow_0dluy9d</bpmn:incoming>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_0dluy9d" sourceRef="Event_1901pes" targetRef="ServiceTask_KaufenAusfuehren" />
+    </bpmn:subProcess>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ga-kaufen-id">
+      <bpmndi:BPMNEdge id="Flow_1p47uoe_di" bpmnElement="Flow_1p47uoe">
+        <di:waypoint x="640" y="220" />
+        <di:waypoint x="682" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15glu22_di" bpmnElement="Flow_outGatewayNoOption">
+        <di:waypoint x="445" y="220" />
+        <di:waypoint x="540" y="220" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="455" y="203" width="65" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kisdm4_di" bpmnElement="Flow_1kisdm4">
+        <di:waypoint x="640" y="340" />
+        <di:waypoint x="700" y="340" />
+        <di:waypoint x="700" y="238" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1creyhd_di" bpmnElement="Flow_outGatewayWrong">
+        <di:waypoint x="420" y="245" />
+        <di:waypoint x="420" y="330" />
+        <di:waypoint x="540" y="330" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="466" y="308" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j1hthb_di" bpmnElement="Flow_outGatewayRight">
+        <di:waypoint x="420" y="195" />
+        <di:waypoint x="420" y="110" />
+        <di:waypoint x="540" y="110" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="470" y="92" width="35" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zdormj_di" bpmnElement="Flow_outProcessRequest_inGateway">
+        <di:waypoint x="350" y="220" />
+        <di:waypoint x="395" y="220" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ar2cym_di" bpmnElement="Flow_1ar2cym">
-        <di:waypoint x="350" y="160" />
-        <di:waypoint x="350" y="202" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1wssg9u_di" bpmnElement="Flow_1wssg9u">
-        <di:waypoint x="260" y="120" />
-        <di:waypoint x="300" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0fh904m_di" bpmnElement="Flow_0fh904m">
-        <di:waypoint x="210" y="202" />
-        <di:waypoint x="210" y="160" />
+        <di:waypoint x="640" y="110" />
+        <di:waypoint x="700" y="110" />
+        <di:waypoint x="700" y="202" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0c4zr6d_di" bpmnElement="SequenceFlow_0c4zr6d">
-        <di:waypoint x="210" y="202" />
-        <di:waypoint x="210" y="160" />
+        <di:waypoint x="245" y="128" />
+        <di:waypoint x="245" y="150" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="198.5" y="110" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_0m5ho94_di" bpmnElement="ServiceTask_KaufenAusfuehren">
-        <dc:Bounds x="160" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_198pxez_di" bpmnElement="UserTask1_john">
-        <dc:Bounds x="300" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventKaufen1">
-        <dc:Bounds x="192" y="202" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="185" y="238" width="55" height="27" />
-        </bpmndi:BPMNLabel>
+        <dc:Bounds x="540" y="70" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_005kski_di" bpmnElement="EndEventKaufen1">
-        <dc:Bounds x="332" y="202" width="36" height="36" />
+        <dc:Bounds x="682" y="202" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="307" y="238" width="89" height="14" />
+          <dc:Bounds x="728" y="213" width="89" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_00aubw1_di" bpmnElement="GatewayKaufen1" isMarkerVisible="true">
+        <dc:Bounds x="395" y="195" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="368" y="183" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yzt9um_di" bpmnElement="UserTask2Exception_john">
+        <dc:Bounds x="540" y="290" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ixpjeb_di" bpmnElement="UserTask3_errorUser">
+        <dc:Bounds x="540" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventKaufen1">
+        <dc:Bounds x="227" y="92" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="217" y="54.5" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1egggix_di" bpmnElement="SubProcess_Kaufen1" isExpanded="true">
+        <dc:Bounds x="140" y="150" width="210" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0dluy9d_di" bpmnElement="Flow_0dluy9d">
+        <di:waypoint x="198" y="230" />
+        <di:waypoint x="230" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0m5ho94_di" bpmnElement="ServiceTask_KaufenAusfuehren">
+        <dc:Bounds x="230" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1901pes_di" bpmnElement="Event_1901pes">
+        <dc:Bounds x="162" y="212" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
