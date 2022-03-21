@@ -116,7 +116,7 @@ EIN_EURO
 FUENZIG_CENT
 ZWANZIG_CENT
 ZEHN_CENT
--cent : Integer
+'-cent : Integer
 + {static} summeAlleMuenzenCents()
 + {static} umwandelnCents2Muenzen()
 + {static} umwandelnMuenzen2Cents()
@@ -139,13 +139,20 @@ ZEHN_CENT
 '-left->
 '-up->
 '-[dotted]->
-Getraenkeautomat *-down-> "1" Warenbestand
-Warenbestand -down-> "1..n" Getraenkefach : ist sortiert in
-Getraenkefach -down-> "0..n" Getraenk : lagert
+Getraenkeautomat "1" *-down-> "1" Warenbestand
+' manchmal die name der variable sagt etwas über die Beziehung
+' hier getraenkefaecher ist sehr ähnlich wie die nahme der Klasse
+' deswegen lassen wir weg
+'Warenbestand "1" -down-> "1..* (1..n)" Getraenkefach : getraenkefaecher (ist sortiert in)
+Warenbestand "1" -down-> "1..* (1..n)" Getraenkefach : ist sortiert in
+'Getraenkefach "1" -down-> "0..* (0..n)" Getraenk : getraenke (lagert)
+Getraenkefach "1" -down-> "0..* (0..n)" Getraenk : lagert
 
-Getraenkeautomat *-down-> "1" Geldbestand
-Geldbestand -down-> "5" Muenzfach : ist sortiert in
-Muenzfach -down-> "0..n" Muenze : lagert
+Getraenkeautomat "1" *-down-> "1" Geldbestand
+'Geldbestand "1" -down-> "5" Muenzfach : muenzen (ist sortiert in)
+Geldbestand "1" -down-> "5" Muenzfach : ist sortiert in
+'Muenzfach "1" -down-> "0..* (0..n)" Muenze : muenze (lagert)
+Muenzfach "1" -down-> "0..* (0..n)" Muenze : lagert
 Muenze::muenze -[dotted]-> Muenztyp
 Muenzfach::fachNummer -[dotted]-> Muenztyp
 
